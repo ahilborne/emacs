@@ -38,3 +38,6 @@
 (setq inhibit-startup-message t)        ;; hide the startup message
 (load-theme 'material t)                ;; load material theme
 ; (global-linum-mode t)                 ;; enable line numbers globally
+
+;; (set-face-attribute 'default nil :family "Courier" :foundry "Adobe" :height 87)
+(set-face-attribute 'default nil :family "Source Code Pro" :foundry "ADBO" :height 87)
