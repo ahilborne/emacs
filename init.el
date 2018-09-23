@@ -1,3 +1,10 @@
+;; Author: Andrew Hilborne
+;;
+;; I've been doing this for nearly 20 years, but in 2018 I have stolen
+;; some ideas from Kyle Purdon @
+;; https://realpython.com/emacs-the-best-python-editor/
+;;
+
 ;; START - especially load-path
 ;; --------------------------------------
 
@@ -13,6 +20,11 @@
 ;; INSTALL PACKAGES
 ;; --------------------------------------
 
+; I think this will cause package.el to load tha autload files from
+; all the packages in package-selected-packages, which is surely going
+; to remove some of the advantages of using use-cusom below. What this
+; _does_ mean is that {init.el, custom.el} are sufficient to load
+; emacs as we want it on a brand new machine.
 (require 'package)
 
 (add-to-list 'package-archives
