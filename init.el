@@ -48,6 +48,8 @@
 (use-package elpy
   :config
   (delete 'elpy-module-highlight-indentation elpy-modules)
+  (setq python-shell-interpreter "ipython"
+	python-shell-interpreter-args "-i --simple-prompt")
   (elpy-enable))
 (use-package magit
   :bind ("C-x g" . magit-status))
