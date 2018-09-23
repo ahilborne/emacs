@@ -49,7 +49,6 @@
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
 
-(setq inhibit-startup-message t)        ;; hide the startup message
 (use-package material-theme
 	     :config
 (load-theme 'material t))                ;; load material theme
