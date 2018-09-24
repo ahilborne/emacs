@@ -118,7 +118,6 @@
 
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
-(put 'narrow-to-region 'disabled nil)
 ;; Why can't I do this with setq?
 (menu-bar-mode -1)
 ;; or this?
