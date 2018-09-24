@@ -39,7 +39,6 @@
     ; better-defaults
     use-package
     material-theme))
-(setq use-package-always-ensure t)
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -48,20 +47,37 @@
 
 ;; BASIC CUSTOMIZATION
 ;; --------------------------------------
+(require 'use-package)
+(setq use-package-always-ensure t)
 
+; load material theme
 (use-package material-theme
 	     :config
-(load-theme 'material t))                ;; load material theme
+	     (load-theme 'material t))
 
 ;; (set-face-attribute 'default nil :family "Courier" :foundry "Adobe" :height 87)
 (set-face-attribute 'default nil :family "Source Code Pro" :foundry "ADBO" :height 87)
 
 (use-package elpy
   :config
-  (delete 'elpy-module-highlight-indentation elpy-modules)
+  (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt")
-  (elpy-enable))
+  (elpy-enable)
+
+)
+
+;; enable autopep8 formatting on save with elpy
+;; (use-package py-autopep8
+;;   :after elpy
+;;   :config
+;;   (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
+  
+;; use flycheck not flymake with elpy
+;; (when (require 'flycheck nil t)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
+
 (use-package magit
   :bind ("C-x g" . magit-status))
 (use-package pipenv)
