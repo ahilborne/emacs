@@ -22,7 +22,7 @@
 
 ; I think this will cause package.el to load tha autoload files from
 ; all the packages in package-selected-packages, which is surely going
-; to remove some of the advantages of using use-cusom below. What this
+; to remove some of the advantages of using use-package below. What this
 ; _does_ mean is that {init.el, custom.el} are sufficient to load
 ; emacs as we want it on a brand new machine.
 (require 'package)
