@@ -50,7 +50,9 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-; load material theme
+;; load material theme
+;; NB (local-theme 'material-light t) gives the light version, or use
+;;    M-x load-theme
 (use-package material-theme
 	     :config
 	     (load-theme 'material t))
