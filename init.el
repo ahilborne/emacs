@@ -139,7 +139,6 @@
 
 ;; Make ibuffer more like electric-buffer-list-mode
 (define-key ibuffer-mode-map (kbd "SPC") 'ibuffer-visit-buffer)
-(autoload 'ibuffer "ibuffer" "List buffers." t)
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
 	     (ibuffer-auto-mode 1)))
