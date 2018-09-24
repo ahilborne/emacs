@@ -20,7 +20,7 @@
 ;; INITIAL PACKAGES
 ;; --------------------------------------
 
-; I think this will cause package.el to load tha autload files from
+; I think this will cause package.el to load tha autoload files from
 ; all the packages in package-selected-packages, which is surely going
 ; to remove some of the advantages of using use-cusom below. What this
 ; _does_ mean is that {init.el, custom.el} are sufficient to load
