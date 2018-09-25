@@ -62,7 +62,10 @@
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt")
-  (add-hook 'python-mode-hook '(lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
+  (add-hook 'python-mode-hook
+            (lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
+  (add-hook 'elpy-mode-hook
+            (lambda ()(elpy-shell-set-local-shell (elpy-project-root))))
   (elpy-enable)
 )
 
