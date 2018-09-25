@@ -109,7 +109,6 @@
  mouse-yank-at-point t
  scroll-step 1
  set-scroll-bar-mode 'right
- show-paren-mode t
  split-width-threshold 150              ; for narrower-than laptop display
  vc-revert-show-diff nil
  visible-bell t
@@ -119,6 +118,7 @@
 ;;
 (setq-default indent-tabs-mode nil)
 
+(show-paren-mode t)
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
 ;; Why can't I do this with setq?
