@@ -62,8 +62,8 @@
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt")
+  (add-hook 'python-mode-hook '(lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
   (elpy-enable)
-
 )
 
 ;; enable autopep8 formatting on save with elpy
