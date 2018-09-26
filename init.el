@@ -82,6 +82,9 @@
 ;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
 
 (use-package magit
+  :config
+  ;; See docs for magit-log-margin
+  (setq magit-log-margin '(t age-abbreviated magit-log-margin-width nil 18))
   :bind ("C-x g" . magit-status))
 
 (use-package filladapt
