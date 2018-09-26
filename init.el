@@ -61,7 +61,8 @@
   :config
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
-	python-shell-interpreter-args "-i --simple-prompt")
+	python-shell-interpreter-args "-i --simple-prompt"
+        comint-scroll-show-maximum-output nil) ; see var docs
   (add-hook 'python-mode-hook
             (lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
   (add-hook 'elpy-mode-hook
