@@ -83,7 +83,7 @@
 
 (use-package magit
   :config
-  ;; See docs for magit-log-margin
+  ;; See docs for magit-log-margin FIXME: not working yet?
   (setq magit-log-margin '(t age-abbreviated magit-log-margin-width nil 18))
   :bind ("C-x g" . magit-status))
 
