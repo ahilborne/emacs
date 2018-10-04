@@ -51,7 +51,7 @@
 (setq use-package-always-ensure t)
 
 ;; load material theme
-;; NB (local-theme 'material-light t) gives the light version, or use
+;; NB (load-theme 'material-light t) gives the light version, or use
 ;;    M-x load-theme
 (use-package material-theme
 	     :config
@@ -62,6 +62,7 @@
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt"
+        gud-pdb-command-name "python -m pdb "
         comint-scroll-show-maximum-output nil) ; see var docs
   (add-hook 'python-mode-hook
             (lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
@@ -85,6 +86,26 @@
   :config
   ;; See docs for magit-log-margin FIXME: not working yet?
   (setq magit-log-margin '(t age-abbreviated magit-log-margin-width nil 18))
+
+  (defun my-git-dired (dir)
+    (interactive
+     "DDirectory inside a git repository: \n")
+    (condition-case nil
+        (dired (cons "*git-dired*" (my-git-ls-files dir)))
+      (error (message "Execution of git-ls-files failed"))))
+
+  (defun my-git-ls-files (dir)
+    (save-excursion
+      (cd dir)
+      (split-string
+       ;; The following is shell-command-to-string with error handling added.
+       (with-output-to-string
+         (with-current-buffer
+             standard-output
+           (unless (= 0 (call-process shell-file-name nil t nil
+                                      shell-command-switch "git ls-files"))
+             (error "Not a git repo")))))))
+
   :bind ("C-x g" . magit-status))
 
 (use-package filladapt
