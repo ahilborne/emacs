@@ -157,6 +157,7 @@
 ;; or this?
 ;; XXX Brand new in 2018!
 (window-divider-mode t)
+(global-undo-tree-mode)
 
 ;; Fix for ediff problem
 (set-variable 'ediff-coding-system-for-write 'raw-text)
