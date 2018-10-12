@@ -176,6 +176,16 @@
 	     (ibuffer-auto-mode 1)))
 ;;           (ibuffer-vc-set-filter-groups-by-vc-root)))   ; Group by .git project
 ;;	     (ibuffer-switch-to-saved-filter-groups "home")))
+
+;; Even more like e-buf-list - this puts cursor on last-changed buffer.
+;; One of several solutions from https://www.emacswiki.org/emacs/IbufferMode.
+(defadvice ibuffer (around ibuffer-point-to-most-recent) ()
+    "Open ibuffer with cursor pointed to most recent buffer name"
+    (let ((recent-buffer-name (buffer-name)))
+      ad-do-it
+      (ibuffer-jump-to-buffer recent-buffer-name)))
+(ad-activate 'ibuffer)
+
 (setq ibuffer-formats 
       '((mark modified read-only " "
               (name 20 20 :left :elide) ; change: 20s were originally 18s
