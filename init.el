@@ -173,8 +173,8 @@
 (define-key ibuffer-mode-map (kbd "SPC") 'ibuffer-visit-buffer)
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
-	     (ibuffer-auto-mode 1)
-             (ibuffer-vc-set-filter-groups-by-vc-root)))
+	     (ibuffer-auto-mode 1)))
+;;           (ibuffer-vc-set-filter-groups-by-vc-root)))   ; Group by .git project
 ;;	     (ibuffer-switch-to-saved-filter-groups "home")))
 (setq ibuffer-formats 
       '((mark modified read-only " "
