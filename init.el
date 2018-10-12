@@ -166,8 +166,8 @@
 
 ;; Keys for electric-buffer/ibuffer
 (require 'ibuffer)
-(global-set-key "\C-c\C-b" 'ibuffer)
-(global-set-key (kbd "C-x C-b") 'electric-buffer-list)
+(global-set-key "\C-x\C-b" 'ibuffer)
+(global-set-key (kbd "C-c C-b") 'electric-buffer-list)
 
 ;; Make ibuffer more like electric-buffer-list-mode
 (define-key ibuffer-mode-map (kbd "SPC") 'ibuffer-visit-buffer)
