@@ -173,15 +173,16 @@
 (define-key ibuffer-mode-map (kbd "SPC") 'ibuffer-visit-buffer)
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
-	     (ibuffer-auto-mode 1)))
+	     (ibuffer-auto-mode 1)
+             (ibuffer-vc-set-filter-groups-by-vc-root)))
 ;;	     (ibuffer-switch-to-saved-filter-groups "home")))
 (setq ibuffer-formats 
       '((mark modified read-only " "
-              (name 30 30 :left :elide) ; change: 30s were originally 18s
-              " "
-              (size 9 -1 :right)
+              (name 20 20 :left :elide) ; change: 20s were originally 18s
               " "
               (mode 16 16 :left :elide)
+              " "
+              (vc-status 14 14 :left)
               " " filename-and-process)
         (mark " "
               (name 16 -1)
