@@ -58,6 +58,7 @@
 	     (load-theme 'material t))
 
 (use-package elpy
+  :bind ([remap elpy-shell-kill-all] . elpy-shell-kill)
   :config
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
