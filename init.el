@@ -30,6 +30,18 @@
 (add-to-list 'package-archives
        '("melpa" . "https://melpa.org/packages/") t)
 
+; Current magit doesn't support emacs 24 (Will be *much* slower, according to the author)
+(if (version< emacs-version "25")
+    (progn
+      (add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/")
+             t)
+      (add-to-list 'package-pinned-packages '(magit . "melpa-stable"))
+      (add-to-list 'package-pinned-packages '(ghub . "melpa-stable"))
+      (add-to-list 'package-pinned-packages '(git-commit . "melpa-stable"))
+      (add-to-list 'package-pinned-packages '(magit-popup . "melpa-stable"))
+      (add-to-list 'package-pinned-packages '(with-editor . "melpa-stable"))))
+
 (setq package-enable-at-startup nil)
 (package-initialize)
 (when (not package-archive-contents)
