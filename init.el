@@ -130,6 +130,8 @@
   :config
   (global-undo-tree-mode))
 
+(use-package ibuffer-vc)                ; VC column for ibuffer
+
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
 
@@ -202,8 +204,6 @@
       ad-do-it
       (ibuffer-jump-to-buffer recent-buffer-name)))
 (ad-activate 'ibuffer)
-
-(use-package ibuffer-vc)
 
 (setq ibuffer-formats 
       '((mark modified read-only " "
