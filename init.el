@@ -114,6 +114,10 @@
   (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
   (add-hook 'text-mode-hook '(lambda() (setq fill-column 80))))
 
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
+
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
 
