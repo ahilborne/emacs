@@ -187,6 +187,8 @@
       (ibuffer-jump-to-buffer recent-buffer-name)))
 (ad-activate 'ibuffer)
 
+(use-package ibuffer-vc)
+
 (setq ibuffer-formats 
       '((mark modified read-only " "
               (name 20 20 :left :elide) ; change: 20s were originally 18s
