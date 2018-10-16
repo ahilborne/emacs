@@ -17,8 +17,6 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
-;; test post-commit hook
-  
 ;; INITIAL PACKAGES
 ;; --------------------------------------
 
