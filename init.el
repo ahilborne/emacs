@@ -107,6 +107,7 @@
         (dired (cons "*git-dired*" (my-git-ls-files dir)))
       (error (message "Execution of git-ls-files failed"))))
 
+  ; Only used by my-git-dired
   (defun my-git-ls-files (dir)
     (save-excursion
       (cd dir)
@@ -126,7 +127,7 @@
   (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
   (add-hook 'text-mode-hook '(lambda() (setq fill-column 80))))
 
-(use-package undo-tree
+(use-package undo-tree                  ; better (and visual) undo handling
   :config
   (global-undo-tree-mode))
 
