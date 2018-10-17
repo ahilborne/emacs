@@ -190,7 +190,11 @@
 (global-set-key (kbd "C-c C-b") 'electric-buffer-list)
 
 ;; Make ibuffer more like electric-buffer-list-mode
-(define-key ibuffer-mode-map (kbd "SPC") 'ibuffer-visit-buffer)
+(define-key ibuffer-mode-map (kbd "SPC")
+  '(lambda ()
+  (interactive)
+  (bury-buffer "*Ibuffer*")
+  (ibuffer-visit-buffer)))
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
 	     (ibuffer-auto-mode 1)
