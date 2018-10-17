@@ -7,13 +7,54 @@
    (quote
     ("a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" default)))
  '(desktop-save-mode t)
+ '(elpy-project-ignored-directories
+   (quote
+    (".tox" "build" "dist" ".cask" ".ipynb_checkpoints" ".pytest_cache" "postman")))
+ '(elpy-test-runner (quote elpy-test-pytest-runner))
+ '(ibuffer-saved-filter-groups
+   (quote
+    (("std"
+      ("minos"
+       (or
+        (name . "\\*Python.*minos")
+        (name . "\\*compilation")
+        (filename . "/work/minos")))
+      ("python"
+       (used-mode . python-mode)
+       (not name . "magit"))
+      ("elisp"
+       (used-mode . emacs-lisp-mode)
+       (not name . "magit")))
+     ("minos"
+      ("minos"
+       (or
+        (name . "\\*Python.*minos")
+        (filename . "/work/minos")))))))
+ '(ibuffer-saved-filters
+   (quote
+    (("gnus"
+      ((or
+        (mode . message-mode)
+        (mode . mail-mode)
+        (mode . gnus-group-mode)
+        (mode . gnus-summary-mode)
+        (mode . gnus-article-mode))))
+     ("programming"
+      ((or
+        (mode . emacs-lisp-mode)
+        (mode . cperl-mode)
+        (mode . c-mode)
+        (mode . java-mode)
+        (mode . idl-mode)
+        (mode . lisp-mode)))))))
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(package-selected-packages
    (quote
-    (filladapt dired-x hs-minor-mode py-autopep8 pipenv magit elpy material-theme use-package)))
+    (ibuffer-vc undo-tree filladapt dired-x hs-minor-mode py-autopep8 pipenv magit elpy material-theme use-package)))
  '(safe-local-variable-values
    (quote
-    ((pyvenv-workon . tpy-dH-qQ_bn)
+    ((pyvenv-workon . samplemod-vt5JuQOi)
+     (pyvenv-workon . tpy-dH-qQ_bn)
      (pyvenv-workon . minos-EnCNK5mv)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
