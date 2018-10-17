@@ -245,6 +245,23 @@
           sh-indent-for-case-alt '+))))
 
 ;; hs-minor-mode
+(add-hook 'hs-minor-mode-hook (lambda ()
+    "Change the hs-minor-mode-map to use Control-C Control-h as the prefix key"
+  (let ((map hs-minor-mode-map))
+    (define-key map "\C-c@\C-h"	         nil)
+    (define-key map "\C-c@\C-s"	         nil)
+    (define-key map "\C-c@\C-\M-h"       nil)
+    (define-key map "\C-c@\C-\M-s"       nil)
+    (define-key map "\C-c@\C-l"	         nil)
+    (define-key map "\C-c@\C-c"	         nil)
+
+    (define-key map "\C-c\h\C-h"	'hs-hide-block)
+    (define-key map "\C-c\h\C-s"	'hs-show-block)
+    (define-key map "\C-c\h\C-\M-h"     'hs-hide-all)
+    (define-key map "\C-c\h\C-\M-s"     'hs-show-all)
+    (define-key map "\C-c\h\C-l"	'hs-hide-level)
+    (define-key map "\C-c\h\C-c"	'hs-toggle-hiding))))
+
 (add-hook 'c-common-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
