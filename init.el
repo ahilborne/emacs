@@ -249,6 +249,29 @@
 (add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
 
+(defun my-hs-minor-mode-map-fix () 
+  "Change the hs-minor-mode-map to use Control-C h as the prefix key.
+- Run Once
+Note well that this function _removes_ itself from the hs-minor-mode hook when it is run."
+  (let ((map hs-minor-mode-map))
+    (define-key map "\C-c@\C-h"	         nil)
+    (define-key map "\C-c@\C-s"	         nil)
+    (define-key map "\C-c@\C-\M-h"       nil)
+    (define-key map "\C-c@\C-\M-s"       nil)
+    (define-key map "\C-c@\C-l"	         nil)
+    (define-key map "\C-c@\C-c"	         nil)
+    (message "Hello")
+    (define-key map "\C-c\h\C-h"	'hs-hide-block)
+    (define-key map "\C-c\h\C-s"	'hs-show-block)
+    (define-key map "\C-c\h\C-\M-h"     'hs-hide-all)
+    (define-key map "\C-c\h\C-\M-s"     'hs-show-all)
+    (define-key map "\C-c\h\C-l"	'hs-hide-level)
+    (define-key map "\C-c\h\C-c"	'hs-toggle-hiding)
+
+    (remove-hook 'hs-minor-mode-hook 'my-hs-minor-mode-map-fix)))
+
+(add-hook 'hs-minor-mode-hook 'my-hs-minor-mode-map-fix)
+
 ;; CPerl mode
 (setq cperl-brace-offset -4
       cperl-indent-level 4)
