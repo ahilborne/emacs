@@ -179,6 +179,18 @@
 (ignore-errors
   (window-divider-mode t))
 
+;; Move non-TRAMP auto-saves to a single directory
+;; FIXME Use a var for the dir name
+(setq
+ auto-save-file-name-transforms
+ '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)
+   (".*" "~/.emacs.d/auto-saves/" t)))  ; trailing / is crucial - see var docs
+(unless (file-exists-p "~/.emacs.d/auto-saves")
+  (make-directory "~/.emacs.d/auto-saves"))
+(setq auto-save-default t
+      auto-save-timeout 3
+      auto-save-interval 200)
+
 ;; Fix for ediff problem
 (set-variable 'ediff-coding-system-for-write 'raw-text)
 
