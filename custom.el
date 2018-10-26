@@ -18,13 +18,12 @@
        (or
         (name . "\\*Python.*minos")
         (name . "\\*compilation")
-        (filename . "/work/minos")))
-      ("python"
-       (used-mode . python-mode)
+        (filename . "/work/minos"))
        (not name . "magit"))
+      ("python"
+       (used-mode . python-mode))
       ("elisp"
-       (used-mode . emacs-lisp-mode)
-       (not name . "magit")))
+       (used-mode . emacs-lisp-mode)))
      ("minos"
       ("minos"
        (or
