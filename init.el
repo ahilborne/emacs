@@ -170,6 +170,7 @@
 (show-paren-mode t)
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
+(magit-file-mode t)
 ;; Why can't I do this with setq?
 (menu-bar-mode -1)
 ;; or this?
