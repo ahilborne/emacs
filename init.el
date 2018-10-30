@@ -96,6 +96,10 @@
 ;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
 
 (use-package magit
+  :commands global-magit-file-mode
+  :init
+  ;; Minor mode with a few key bindings
+  (global-magit-file-mode 1)
   :config
   ;; See docs for magit-log-margin FIXME: not working yet?
   (setq magit-log-margin '(t age-abbreviated magit-log-margin-width nil 18))
@@ -170,7 +174,6 @@
 (show-paren-mode t)
 (tool-bar-mode 0)
 (blink-cursor-mode 0)
-(magit-file-mode t)
 ;; Why can't I do this with setq?
 (menu-bar-mode -1)
 ;; or this?
