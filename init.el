@@ -209,7 +209,9 @@
 (define-key ibuffer-mode-map (kbd "SPC")
   '(lambda ()
   (interactive)
-  (bury-buffer "*Ibuffer*")
+  ;; this next means we can 'swap' between two buffers,
+  ;; without *Ibuffer* getting in the way
+  (bury-buffer "*Ibuffer*")             
   (ibuffer-visit-buffer)))
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
