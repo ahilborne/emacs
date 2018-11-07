@@ -271,6 +271,10 @@
 (add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
 
+;; occur mode
+(add-hook 'occur-mode-hook
+          (lambda () (setq list-matching-lines-default-context-lines 4)))
+
 (defun my-hs-minor-mode-map-fix () 
   "Change the hs-minor-mode-map to use Control-C h as the prefix key.
 - Run Once
