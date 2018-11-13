@@ -155,7 +155,7 @@
    (quote ("CM/" "CVS/" ".so" ".o" ".obj" ".elc" "~" ".bin" ".lbin" ".dvi" ".class"))
  delete-key-deletes-forward t
  delete-selection-mode 1
- dired-auto-revert-buffer 1
+ dired-auto-revert-buffer t
  inhibit-startup-screen t
  line-number-mode t
  make-backup-files nil
@@ -199,6 +199,12 @@
 (set-variable 'ediff-coding-system-for-write 'raw-text)
 
 (require 'dired-x)  ; Get back some of those nice features from xemacs!
+(add-hook 'dired-mode-hook
+          '(lambda ()
+             ;; periodically revert, but see also dired-auto-revert-buffer
+             (auto-revert-mode)
+             ;; revert silently
+             (auto-revert-verbose nil)))
 
 ;; Keys for electric-buffer/ibuffer
 (require 'ibuffer)
