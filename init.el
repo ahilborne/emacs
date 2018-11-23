@@ -205,7 +205,7 @@
              ;; periodically revert, but see also dired-auto-revert-buffer
              (auto-revert-mode)
              ;; revert silently
-             (auto-revert-verbose nil)))
+             (setq auto-revert-verbose nil)))
 
 ;; Keys for electric-buffer/ibuffer
 (require 'ibuffer)
