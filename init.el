@@ -151,6 +151,7 @@
  auto-compression-mode t                ; for .gz files, etc
  change-log-default-name "~/NOTES"
  column-number-mode t
+ compilation-scroll-output t
  completion-ignored-extensions
    (quote ("CM/" "CVS/" ".so" ".o" ".obj" ".elc" "~" ".bin" ".lbin" ".dvi" ".class"))
  delete-key-deletes-forward t
