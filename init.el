@@ -70,6 +70,9 @@
 	     (load-theme 'material t))
 
 (use-package elpy
+  ;; Since we don't (for example) hook into python-mode to enable
+  ;; elpy, it may never be started without :demand.
+  :demand
   :bind ([remap elpy-shell-kill-all] . elpy-shell-kill)
   :config
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
