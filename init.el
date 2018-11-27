@@ -162,6 +162,7 @@
  delete-key-deletes-forward t
  delete-selection-mode 1
  dired-auto-revert-buffer t
+ dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$"
  inhibit-startup-screen t
  line-number-mode t
  make-backup-files nil
@@ -209,6 +210,7 @@
           '(lambda ()
              ;; periodically revert, but see also dired-auto-revert-buffer
              (auto-revert-mode)
+             (dired-omit-mode)
              ;; revert silently
              (setq auto-revert-verbose nil)))
 
