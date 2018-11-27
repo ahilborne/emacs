@@ -132,7 +132,9 @@
 (use-package filladapt
   :config
   (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
-  (add-hook 'text-mode-hook '(lambda() (setq fill-column 80))))
+  (add-hook 'text-mode-hook '(lambda() (setq fill-column 80)
+                               (auto-fill-mode))))
+            
 
 (use-package undo-tree                  ; better (and visual) undo handling
   :config
