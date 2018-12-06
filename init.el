@@ -155,7 +155,8 @@
  delete-key-deletes-forward t
  delete-selection-mode 1
  dired-auto-revert-buffer t
- dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|^\\.git"
+ dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
+                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  inhibit-startup-screen t
  line-number-mode t
  make-backup-files nil
