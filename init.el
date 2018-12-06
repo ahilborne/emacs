@@ -129,13 +129,6 @@
 
   :bind ("C-x g" . magit-status))
 
-(use-package filladapt
-  :config
-  (add-hook 'text-mode-hook 'turn-on-filladapt-mode)
-  (add-hook 'text-mode-hook '(lambda() (setq fill-column 80)
-                               (auto-fill-mode))))
-            
-
 (use-package undo-tree                  ; better (and visual) undo handling
   :config
   (global-undo-tree-mode))
@@ -189,6 +182,12 @@
 ;; XXX Brand new in 2018!
 (ignore-errors
   (window-divider-mode t))
+
+;; Filling
+(require 'filladapt)
+(setq-default filladapt-mode t)
+(auto-fill-mode 1)
+(setq fill-column 79)
 
 ;; Move non-TRAMP auto-saves to a single directory
 ;; FIXME Use a var for the dir name
@@ -267,11 +266,15 @@
 (add-hook 'c-mode-common-hook (lambda ()
   "-amh- customisations for all of c-mode and related modes"
   (progn
+    (setq-local comment-auto-fill-only-comments t)
     (setq
      tab-width 4
      indent-tabs-node nil
-     c-basic-offset 4)
-    (turn-off-filladapt-mode))))
+     c-basic-offset 4))))
+
+;; text-mode
+(add-hook 'text-mode-hook '(lambda()
+                             (setq fill-column 80)))
 
 ;; sh-mode
 (add-hook 'sh-mode-hook (lambda ()
