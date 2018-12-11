@@ -154,6 +154,7 @@
    (quote ("CM/" "CVS/" ".so" ".o" ".obj" ".elc" "~" ".bin" ".lbin" ".dvi" ".class"))
  delete-key-deletes-forward t
  delete-selection-mode 1
+ desktop-dirname (getenv "HOME")
  dired-auto-revert-buffer t
  dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
                           "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
