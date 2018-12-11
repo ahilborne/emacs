@@ -6,6 +6,7 @@
  '(custom-safe-themes
    (quote
     ("a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" default)))
+ '(desktop-restore-eager 10)
  '(desktop-save-mode t)
  '(elpy-project-ignored-directories
    (quote
@@ -52,7 +53,9 @@
     (ibuffer-vc undo-tree filladapt dired-x hs-minor-mode py-autopep8 pipenv magit elpy material-theme use-package)))
  '(safe-local-variable-values
    (quote
-    ((pyvenv-workon . samplemod-vt5JuQOi)
+    ((pyvenv-workon . test-httpbin-Wrb4rxbl)
+     (pyvenv-workon . tlog-Q48PQs4D)
+     (pyvenv-workon . samplemod-vt5JuQOi)
      (pyvenv-workon . tpy-dH-qQ_bn)
      (pyvenv-workon . minos-EnCNK5mv)))))
 (custom-set-faces
