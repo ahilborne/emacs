@@ -135,6 +135,8 @@
 
 (use-package ibuffer-vc)                ; VC column for ibuffer
 
+(use-package csv-mode)
+
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
 
