@@ -277,7 +277,9 @@
      c-basic-offset 4))))
 
 ;; text-mode
+;; Moved auto-fill-mode here to try and improve when it is actually turned on
 (add-hook 'text-mode-hook '(lambda()
+                             (auto-fill-mode 1)
                              (setq fill-column 80)))
 
 ;; sh-mode
