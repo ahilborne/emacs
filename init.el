@@ -160,6 +160,7 @@
  dired-auto-revert-buffer t
  dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
                           "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
+ display-buffer-reuse-frames t          ; multiple monitors
  inhibit-startup-screen t
  line-number-mode t
  make-backup-files nil
