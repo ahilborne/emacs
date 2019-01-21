@@ -326,6 +326,7 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
       cperl-indent-level 4)
 
 ;; Associate extensions with modes
+(add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.h$"    . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.ovpn$" . conf-space-mode))
 (add-to-list 'auto-mode-alist '("\\.conf$" . conf-space-mode))
