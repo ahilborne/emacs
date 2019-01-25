@@ -78,7 +78,7 @@
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt"
-        gud-pdb-command-name "python -m pdb "
+        gud-pdb-command-name "python -m pdb"
         comint-scroll-show-maximum-output nil) ; see var docs
   (add-hook 'python-mode-hook
             (lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
