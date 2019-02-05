@@ -331,6 +331,14 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 (add-to-list 'auto-mode-alist '("\\.ovpn$" . conf-space-mode))
 (add-to-list 'auto-mode-alist '("\\.conf$" . conf-space-mode))
 
+;; One-handed (telephone) notebook
+(defun jump-to-scratch()
+  (interactive)
+  (find-file "~/.emacs.d/quick-notes.txt")
+  (text-mode))
+(global-set-key (kbd "M-s s") 'jump-to-scratch)
+(global-set-key [f6] 'jump-to-scratch)
+
 ;; Add final message so using C-h l I can see if init failed
 (message "init.el loaded successfully.")
 
