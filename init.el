@@ -98,6 +98,10 @@
 ;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
 ;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
 
+(use-package csv-mode)
+
+(use-package ibuffer-vc)                ; VC column for ibuffer
+
 (use-package magit
   :commands global-magit-file-mode
   :init
@@ -129,17 +133,14 @@
 
   :bind ("C-x g" . magit-status))
 
+(use-package markdown-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode)))
+
 (use-package undo-tree                  ; better (and visual) undo handling
   :config
   (global-undo-tree-mode))
 
-(use-package ibuffer-vc)                ; VC column for ibuffer
-
-(use-package csv-mode)
-
-(use-package markdown-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode)))
 
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
