@@ -282,6 +282,29 @@
      indent-tabs-node nil
      c-basic-offset 4))))
 
+;; Org mode
+(use-package org
+  :config
+  (setq org-src-fontify-natively t)
+
+  (require 'ox-latex)
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil))
+  (add-to-list 'org-latex-classes
+               '("article"
+                 "\\documentclass{article}"
+                 ("\\section{%s}" . "\\section*{%s}")))
+
+  (defun my/org-mode-setup ()
+    "Local setup for org mode"
+
+    (visual-line-mode)
+    (org-indent-mode)
+    (org-bullets-mode))
+
+  (add-hook 'org-mode-hook 'my/org-mode-setup))
+
+
 ;; text-mode
 ;; Moved auto-fill-mode here to try and improve when it is actually turned on
 (add-hook 'text-mode-hook '(lambda()
@@ -333,6 +356,7 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 
 ;; Associate extensions with modes
 (add-to-list 'auto-mode-alist '("\\.h$"    . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.org$"  . org-mode))
 (add-to-list 'auto-mode-alist '("\\.ovpn$" . conf-space-mode))
 (add-to-list 'auto-mode-alist '("\\.conf$" . conf-space-mode))
 
