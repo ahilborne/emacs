@@ -141,6 +141,7 @@
   :config
   (global-undo-tree-mode))
 
+(use-package rainbow-mode)              ; hex colours
 
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
