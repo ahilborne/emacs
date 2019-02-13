@@ -229,6 +229,7 @@
 (global-set-key (kbd "C-c C-b") 'electric-buffer-list)
 
 ;; Make ibuffer more like electric-buffer-list-mode
+;; FIXME This only really works for me, 'cos I always use SPC here.
 (define-key ibuffer-mode-map (kbd "SPC")
   '(lambda ()
   (interactive)
