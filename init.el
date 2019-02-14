@@ -287,7 +287,8 @@
 ;; Org mode
 (use-package org
   :config
-  (setq org-src-fontify-natively t)
+  (setq org-src-fontify-natively t
+        org-hide-emphasis-markers t)
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
@@ -297,14 +298,14 @@
                  "\\documentclass{article}"
                  ("\\section{%s}" . "\\section*{%s}")))
 
-  (defun my/org-mode-setup ()
-    "Local setup for org mode"
+  (defun my/org-mode-buffer-setup ()
+    "Per-buffer setup for org mode"
 
     (visual-line-mode)
     (org-indent-mode)
     (org-bullets-mode))
 
-  (add-hook 'org-mode-hook 'my/org-mode-setup))
+  (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
 
 
 ;; text-mode
