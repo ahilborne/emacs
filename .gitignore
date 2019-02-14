@@ -1,6 +1,7 @@
 *
 
--.gitignore
+.gitignore
 
--custom.el
--init.el
+!*-theme.el
+!custom.el
+!init.el
