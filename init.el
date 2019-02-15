@@ -285,10 +285,14 @@
      c-basic-offset 4))))
 
 ;; Org mode
+(use-package org-bullets)
+
 (use-package org
+  :after org-bullets-mode
   :config
   (setq org-src-fontify-natively t
-        org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t
+        org-export-backends '(ascii html icalendar latex md odt))
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
