@@ -285,10 +285,10 @@
      c-basic-offset 4))))
 
 ;; Org mode
-(use-package org-bullets)
+(use-package org-bullets :demand)
 
 (use-package org
-  :after org-bullets-mode
+  :after org-bullets
   :config
   (setq org-src-fontify-natively t
         org-hide-emphasis-markers t
