@@ -78,7 +78,7 @@
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt"
-        gud-pdb-command-name "python -m pdb "
+        gud-pdb-command-name "python -m pdb"
         comint-scroll-show-maximum-output nil) ; see var docs
   (add-hook 'python-mode-hook
             (lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
@@ -97,6 +97,10 @@
 ;; (when (require 'flycheck nil t)
 ;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
 ;;   (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+(use-package csv-mode)
+
+(use-package ibuffer-vc)                ; VC column for ibuffer
 
 (use-package magit
   :commands global-magit-file-mode
@@ -129,13 +133,15 @@
 
   :bind ("C-x g" . magit-status))
 
+(use-package markdown-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode)))
+
 (use-package undo-tree                  ; better (and visual) undo handling
   :config
   (global-undo-tree-mode))
 
-(use-package ibuffer-vc)                ; VC column for ibuffer
-
-(use-package csv-mode)
+(use-package rainbow-mode)              ; hex colours
 
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
@@ -160,6 +166,7 @@
  dired-auto-revert-buffer t
  dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
                           "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
+ display-buffer-reuse-frames t          ; multiple monitors
  inhibit-startup-screen t
  line-number-mode t
  make-backup-files nil
@@ -223,6 +230,7 @@
 (global-set-key (kbd "C-c C-b") 'electric-buffer-list)
 
 ;; Make ibuffer more like electric-buffer-list-mode
+;; FIXME This only really works for me, 'cos I always use SPC here.
 (define-key ibuffer-mode-map (kbd "SPC")
   '(lambda ()
   (interactive)
@@ -276,6 +284,30 @@
      indent-tabs-node nil
      c-basic-offset 4))))
 
+;; Org mode
+(use-package org
+  :config
+  (setq org-src-fontify-natively t
+        org-hide-emphasis-markers t)
+
+  (require 'ox-latex)
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil))
+  (add-to-list 'org-latex-classes
+               '("article"
+                 "\\documentclass{article}"
+                 ("\\section{%s}" . "\\section*{%s}")))
+
+  (defun my/org-mode-buffer-setup ()
+    "Per-buffer setup for org mode"
+
+    (visual-line-mode)
+    (org-indent-mode)
+    (org-bullets-mode))
+
+  (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
+
+
 ;; text-mode
 ;; Moved auto-fill-mode here to try and improve when it is actually turned on
 (add-hook 'text-mode-hook '(lambda()
@@ -326,8 +358,8 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
       cperl-indent-level 4)
 
 ;; Associate extensions with modes
-(add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.h$"    . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.org$"  . org-mode))
 (add-to-list 'auto-mode-alist '("\\.ovpn$" . conf-space-mode))
 (add-to-list 'auto-mode-alist '("\\.conf$" . conf-space-mode))
 
