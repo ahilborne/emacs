@@ -8,8 +8,14 @@
 ;; TODO - improvements for the future
 ;; -------------------------------------
 
-; This could be a good idea
+; 1. use use-package + :custom for customisations
+
+; 2. This could be a good idea. Just look in it to see what's been changed
 ; (setq custom-file (make-temp-file "emacs-custom"))
+
+; 3. Put (m)elpa in vc, or changed package versions in the future will bite me
+
+; 4. Do I need use-package :ensure?
 
 ;; START - especially load-path
 ;; --------------------------------------
