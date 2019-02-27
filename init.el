@@ -5,6 +5,12 @@
 ;; https://realpython.com/emacs-the-best-python-editor/
 ;;
 
+;; TODO - improvements for the future
+;; -------------------------------------
+
+; This could be a good idea
+; (setq custom-file (make-temp-file "emacs-custom"))
+
 ;; START - especially load-path
 ;; --------------------------------------
 
