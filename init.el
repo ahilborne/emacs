@@ -300,7 +300,8 @@
 (use-package org
   :config
   (setq org-src-fontify-natively t
-        org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t
+        org-default-notes-file (concat org-directory "/notes.org"))
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
