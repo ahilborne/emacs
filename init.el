@@ -15,7 +15,7 @@
 
 ; 3. Put (m)elpa in vc, or changed package versions in the future will bite me
 
-; 4. Do I need use-package :ensure?
+; 4. Do I need use-pac
 
 ;; START - especially load-path
 ;; --------------------------------------
