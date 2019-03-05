@@ -5,6 +5,18 @@
 ;; https://realpython.com/emacs-the-best-python-editor/
 ;;
 
+;; TODO - improvements for the future
+;; -------------------------------------
+
+; 1. use use-package + :custom for customisations
+
+; 2. This could be a good idea. Just look in it to see what's been changed
+; (setq custom-file (make-temp-file "emacs-custom"))
+
+; 3. Put (m)elpa in vc, or changed package versions in the future will bite me
+
+; 4. Do I need use-pac
+
 ;; START - especially load-path
 ;; --------------------------------------
 
@@ -306,6 +318,7 @@
   :config
   (setq org-src-fontify-natively t
         org-hide-emphasis-markers t
+        org-default-notes-file (concat org-directory "/notes.org")
         org-export-backends '(ascii html icalendar latex md odt))
 
   (require 'ox-latex)
