@@ -3,5 +3,4 @@
 .gitignore
 
 !*-theme.el
-!custom.el
 !init.el

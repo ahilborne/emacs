@@ -39,8 +39,14 @@
 ; emacs as we want it on a brand new machine.
 (require 'package)
 
+;; ;; Quelpa for git support inside use-package
+;; (use-package quelpa-use-package
+;;   :demand
+;;   :init (setq quelpa-update-melpa-p nil))
+
+;; FIXME XXX Should use https where possible (!Windows)
 (add-to-list 'package-archives
-       '("melpa" . "https://melpa.org/packages/") t)
+       '("melpa" . "http://melpa.org/packages/") t)
 
 ; Current magit doesn't support emacs 24 (Will be *much* slower, according to the author)
 (if (version< emacs-version "25")
@@ -78,8 +84,9 @@
 ;; NB (load-theme 'material-light t) gives the light version, or use
 ;;    M-x load-theme
 (use-package material-theme
-	     :config
-	     (load-theme 'material t))
+  :demand
+  :config
+  (load-theme 'material t))
 
 (use-package elpy
   ;; Since we don't (for example) hook into python-mode to enable
@@ -155,6 +162,21 @@
 
 (use-package rainbow-mode)              ; hex colours
 
+;; Smileys for heaven's sake!
+;; (use-package mplayer-mode
+;;   :ensure nil
+;;   :quelpa (mplayer-mode
+;;            :fetcher github
+;;            :repo "markhepburn/mplayer-mode"))
+
+(use-package filladapt
+  :config
+  (setq-default filladapt-mode t))
+
+(use-package markdown-mode
+  :config
+  (setq markdown-command "pandoc --from=markdown --to=html --standalone --mathjax --highlight-style=pygments"))
+
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
 
@@ -207,8 +229,8 @@
   (window-divider-mode t))
 
 ;; Filling
-(require 'filladapt)
-(setq-default filladapt-mode t)
+;;; XXX (require 'filladapt)
+;;; XXX (setq-default filladapt-mode t)
 (auto-fill-mode 1)
 (setq fill-column 79)
 
@@ -230,6 +252,7 @@
 (require 'dired-x)  ; Get back some of those nice features from xemacs!
 (add-hook 'dired-mode-hook
           '(lambda ()
+             (dired-hide-details-mode)
              ;; periodically revert, but see also dired-auto-revert-buffer
              (auto-revert-mode)
              (dired-omit-mode)
@@ -393,3 +416,4 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 
 ;;; Local Variables: ***
 ;;; End: ***
+(put 'downcase-region 'disabled nil)
