@@ -297,11 +297,15 @@
      c-basic-offset 4))))
 
 ;; Org mode
+(use-package org-bullets :demand)
+
 (use-package org
+  :after org-bullets
   :config
   (setq org-src-fontify-natively t
         org-hide-emphasis-markers t
-        org-default-notes-file (concat org-directory "/notes.org"))
+        org-default-notes-file (concat org-directory "/notes.org")
+        org-export-backends '(ascii html icalendar latex md odt))
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
@@ -379,7 +383,7 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 ;; One-handed (telephone) notebook
 (defun jump-to-scratch()
   (interactive)
-  (switch-to-buffer "quick-notes.txt")
+  (find-file "~/.emacs.d/quick-notes.txt")
   (text-mode))
 (global-set-key (kbd "M-s s") 'jump-to-scratch)
 (global-set-key [f6] 'jump-to-scratch)
