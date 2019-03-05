@@ -27,8 +27,14 @@
 ; emacs as we want it on a brand new machine.
 (require 'package)
 
+;; FIXME XXX Should use https where possible (!Windows)
 (add-to-list 'package-archives
-       '("melpa" . "https://melpa.org/packages/") t)
+       '("melpa" . "http://melpa.org/packages/") t)
+
+;; ;; Quelpa for git support inside use-package
+;; (use-package quelpa-use-package
+;;   :demand
+;;   :init (setq quelpa-update-melpa-p nil))
 
 ; Current magit doesn't support emacs 24 (Will be *much* slower, according to the author)
 (if (version< emacs-version "25")
@@ -142,6 +148,13 @@
   (global-undo-tree-mode))
 
 (use-package rainbow-mode)              ; hex colours
+
+;; Smileys for heaven's sake!
+;; (use-package mplayer-mode
+;;   :ensure nil
+;;   :quelpa (mplayer-mode
+;;            :fetcher github
+;;            :repo "markhepburn/mplayer-mode"))
 
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
