@@ -218,6 +218,7 @@
 (require 'dired-x)  ; Get back some of those nice features from xemacs!
 (add-hook 'dired-mode-hook
           '(lambda ()
+             (dired-hide-details-mode)
              ;; periodically revert, but see also dired-auto-revert-buffer
              (auto-revert-mode)
              (dired-omit-mode)
