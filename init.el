@@ -198,7 +198,10 @@
  delete-selection-mode 1
  desktop-dirname (getenv "HOME")
  dired-auto-revert-buffer t
- dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
+ ;; dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
+ ;;                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
+ ;; Don't omit parent directory (why?!! would anyone do this?)
+ dired-omit-files (concat "^\\.?#\\|^\\.$\\\|_flymake\\.py$\\|"
                           "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  display-buffer-reuse-frames t          ; multiple monitors
  inhibit-startup-screen t
@@ -252,7 +255,7 @@
 (require 'dired-x)  ; Get back some of those nice features from xemacs!
 (add-hook 'dired-mode-hook
           '(lambda ()
-             (dired-hide-details-mode)
+             ;; (dired-hide-details-mode)
              ;; periodically revert, but see also dired-auto-revert-buffer
              (auto-revert-mode)
              (dired-omit-mode)
