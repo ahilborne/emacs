@@ -313,6 +313,8 @@
 (setq ibuffer-saved-filter-groups
       (quote
        (("std"
+         ("magit"
+          (name . "^magit"))
          ("minos"
           (or
            (name . "\\*Python.*minos")
@@ -327,8 +329,7 @@
           (filename . ":build:"))
          ("elisp"
           (used-mode . emacs-lisp-mode))
-         ("magit"
-          (name . "^magit"))))))
+         ))))
 
 ;; Re-enable SPACE as completion character in find-file, etc. See etc/NEWS 22.1.
 (define-key minibuffer-local-filename-completion-map
