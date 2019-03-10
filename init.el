@@ -328,12 +328,7 @@
          ("elisp"
           (used-mode . emacs-lisp-mode))
          ("magit"
-          (name . "^magit")))
-        ("minos"
-         ("minos"
-          (or
-           (name . "\\*Python.*minos")
-           (filename . "/work/minos")))))))
+          (name . "^magit"))))))
 
 ;; Re-enable SPACE as completion character in find-file, etc. See etc/NEWS 22.1.
 (define-key minibuffer-local-filename-completion-map
