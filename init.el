@@ -219,17 +219,19 @@
 ;;
 (setq-default indent-tabs-mode nil)
 
-(show-paren-mode t)
-(tool-bar-mode 0)
-(blink-cursor-mode 0)
-;; Why can't I do this with setq?
-(menu-bar-mode -1)
-;; or this?
-(put 'narrow-to-region 'disabled nil)
-;; or this?
-;; XXX Brand new in 2018!
-(ignore-errors
-  (window-divider-mode t))
+;; Random. Mainly like this for hide-show-minor-mode
+(progn
+  ;; Why can't I do this with setq?
+  (menu-bar-mode -1)
+  ;; or this?
+  (put 'narrow-to-region 'disabled nil)
+  ;; or this?
+  ;; XXX Brand new in 2018!
+  (ignore-errors
+    (window-divider-mode t))
+  (show-paren-mode t)
+  (tool-bar-mode 0)
+(blink-cursor-mode 0))
 
 ;; Filling
 ;;; XXX (require 'filladapt)
@@ -262,6 +264,9 @@
              ;; revert silently
              (setq auto-revert-verbose nil)))
 
+;; IBUFFER
+;; -------
+
 ;; Keys for electric-buffer/ibuffer
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
@@ -276,6 +281,7 @@
   ;; without *Ibuffer* getting in the way
   (bury-buffer "*Ibuffer*")             
   (ibuffer-visit-buffer)))
+
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
 	     (ibuffer-auto-mode 1)
@@ -303,12 +309,37 @@
               (name 16 -1)
               " " filename)))
 
+;; ibuffer filter groups
+(setq ibuffer-saved-filter-groups
+      (quote
+       (("std"
+         ("minos"
+          (or
+           (name . "\\*Python.*minos")
+           (name . "\\*compilation")
+           (filename . "/work/minos"))
+          (not name . "magit"))
+         ("powervault"
+          (filename . "powervault"))
+         ("python"
+          (used-mode . python-mode))
+         ("build server"
+          (filename . ":build:"))
+         ("elisp"
+          (used-mode . emacs-lisp-mode))
+         ("magit"
+          (name . "^magit")))
+        ("minos"
+         ("minos"
+          (or
+           (name . "\\*Python.*minos")
+           (filename . "/work/minos")))))))
+
 ;; Re-enable SPACE as completion character in find-file, etc. See etc/NEWS 22.1.
 (define-key minibuffer-local-filename-completion-map
   " " 'minibuffer-complete-word)
 (define-key minibuffer-local-must-match-filename-map
   " " 'minibuffer-complete-word)  
-
 
 ;; Setup for modes
 
