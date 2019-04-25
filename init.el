@@ -100,7 +100,8 @@
         gud-pdb-command-name "python -m pdb"
         comint-scroll-show-maximum-output nil) ; see var docs
   (add-hook 'python-mode-hook
-            (lambda()(pyvenv-mode)(pyvenv-tracking-mode)))
+            (lambda()(pyvenv-mode)(pyvenv-tracking-mode))
+            (lambda()(toggle-truncate-lines)))
   (add-hook 'elpy-mode-hook
             (lambda ()(elpy-shell-set-local-shell (elpy-project-root))))
   (elpy-enable)
@@ -198,6 +199,8 @@
  delete-selection-mode 1
  desktop-dirname (getenv "HOME")
  dired-auto-revert-buffer t
+ dired-dwim-target t
+ dired-listing-switches "-alt"
  ;; dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
  ;;                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  ;; Don't omit parent directory (why?!! would anyone do this?)
@@ -239,6 +242,8 @@
 (auto-fill-mode 1)
 (setq fill-column 79)
 
+;; TRAMP
+
 ;; Move non-TRAMP auto-saves to a single directory
 ;; FIXME Use a var for the dir name
 (setq
@@ -250,6 +255,15 @@
 (setq auto-save-default t
       auto-save-timeout 3
       auto-save-interval 200)
+
+;; Password saving for TRAMP
+(setq auth-source-debug t
+      password-cache-expiry 3600
+      auth-source-debug t
+      auth-sources '((:source "~/.authinfo.gpg")))
+
+;; Could change this for different hosts e.g. Powervault/elsewhere
+(customize-set-variable 'tramp-default-user "root")
 
 ;; Fix for ediff problem
 (set-variable 'ediff-coding-system-for-write 'raw-text)
@@ -310,26 +324,40 @@
               " " filename)))
 
 ;; ibuffer filter groups
-(setq ibuffer-saved-filter-groups
-      (quote
-       (("std"
-         ("magit"
-          (name . "^magit"))
-         ("minos"
-          (or
-           (name . "\\*Python.*minos")
-           (name . "\\*compilation")
-           (filename . "/work/minos"))
-          (not name . "magit"))
-         ("powervault"
-          (filename . "powervault"))
-         ("python"
-          (used-mode . python-mode))
-         ("build server"
-          (filename . ":build:"))
-         ("elisp"
-          (used-mode . emacs-lisp-mode))
-         ))))
+;; (setq ibuffer-saved-filter-groups
+;;       (quote
+;;        (("std"
+;;          ("magit"
+;;           (name . "^magit"))
+;;          ("minos"
+;;           (or
+;;            (name . "\\*Python.*minos")
+;;            (name . "\\*compilation")
+;;            (filename . "/work/minos"))
+;;           (not name . "magit"))
+;;          ("SOM"
+;;           (filename . "som:"))
+;;          ("LSOM"
+;;           (filename . "lsom:"))
+;;          ("RSOM"
+;;           (filename . "rsom:"))
+;;          ("SOM"
+;;           (filename . "som:"))
+;;          ("rhino"
+;;           (filename . "rhino"))
+;;          ("rpmsgHandler"
+;;           (filename . "rpmsghandler"))
+;;          ("m4Command"
+;;           (filename . "/m4cmd/"))
+;;          ("powervault"
+;;           (filename . "powervault"))
+;;          ("python"
+;;           (used-mode . python-mode))
+;;          ("build server"
+;;           (filename . ":build:"))
+;;          ("elisp"
+;;           (used-mode . emacs-lisp-mode))
+;;          ))))
 
 ;; Re-enable SPACE as completion character in find-file, etc. See etc/NEWS 22.1.
 (define-key minibuffer-local-filename-completion-map
