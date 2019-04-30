@@ -429,7 +429,8 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 (defun jump-to-scratch()
   (interactive)
   (find-file "~/org/quick-notes.org")
-  (text-mode))
+  )
+;  (text-mode))
 (global-set-key (kbd "M-s s") 'jump-to-scratch)
 (global-set-key [f6] 'jump-to-scratch)
 
