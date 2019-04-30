@@ -323,42 +323,6 @@
               (name 16 -1)
               " " filename)))
 
-;; ibuffer filter groups
-;; (setq ibuffer-saved-filter-groups
-;;       (quote
-;;        (("std"
-;;          ("magit"
-;;           (name . "^magit"))
-;;          ("minos"
-;;           (or
-;;            (name . "\\*Python.*minos")
-;;            (name . "\\*compilation")
-;;            (filename . "/work/minos"))
-;;           (not name . "magit"))
-;;          ("SOM"
-;;           (filename . "som:"))
-;;          ("LSOM"
-;;           (filename . "lsom:"))
-;;          ("RSOM"
-;;           (filename . "rsom:"))
-;;          ("SOM"
-;;           (filename . "som:"))
-;;          ("rhino"
-;;           (filename . "rhino"))
-;;          ("rpmsgHandler"
-;;           (filename . "rpmsghandler"))
-;;          ("m4Command"
-;;           (filename . "/m4cmd/"))
-;;          ("powervault"
-;;           (filename . "powervault"))
-;;          ("python"
-;;           (used-mode . python-mode))
-;;          ("build server"
-;;           (filename . ":build:"))
-;;          ("elisp"
-;;           (used-mode . emacs-lisp-mode))
-;;          ))))
-
 ;; Re-enable SPACE as completion character in find-file, etc. See etc/NEWS 22.1.
 (define-key minibuffer-local-filename-completion-map
   " " 'minibuffer-complete-word)
