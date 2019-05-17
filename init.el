@@ -183,7 +183,7 @@
   :defer t
   :init
   (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    (define-key winum-keymap (kbd "M-0") #'treemacs))
   :config
   (progn
     (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0)
@@ -234,9 +234,9 @@
        (treemacs-git-mode 'simple))))
   :bind
   (:map global-map
-        ("M-0"       . treemacs-select-window)
+        ("M-0"       . treemacs)
         ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
+        ("C-x t t"   . treemacs-select-window)
         ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag)))
