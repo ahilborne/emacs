@@ -232,7 +232,8 @@
        (treemacs-git-mode 'deferred))
       (`(t . _)
        (treemacs-git-mode 'simple))))
-  :bind
+  # -amh- We don't need 'p' for 'previous line', so steal it for an easier-to-type 'peek'
+  :bind ([remap treemacs-previous-line] . treemacs-peek)
   (:map global-map
         ("M-0"       . treemacs)
         ("C-x t 1"   . treemacs-delete-other-windows)
