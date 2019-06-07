@@ -100,6 +100,7 @@
         gud-pdb-command-name "python -m pdb"
         comint-scroll-show-maximum-output nil) ; see var docs
   (add-hook 'python-mode-hook
+            (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace))
             (lambda()(pyvenv-mode)(pyvenv-tracking-mode))
             (lambda()(toggle-truncate-lines)))
   (add-hook 'elpy-mode-hook
