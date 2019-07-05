@@ -278,7 +278,7 @@
  desktop-dirname (getenv "HOME")
  dired-auto-revert-buffer t
  dired-dwim-target t
- dired-listing-switches "-alt"
+ dired-listing-switches "-al"
  ;; dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
  ;;                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  ;; Don't omit parent directory (why?!! would anyone do this?)
