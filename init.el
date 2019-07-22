@@ -171,6 +171,13 @@
 ;;            :fetcher github
 ;;            :repo "markhepburn/mplayer-mode"))
 
+(use-package yaml-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.yml$"   . yaml-mode))
+  (add-hook 'yaml-mode-hook
+    '(lambda ()
+       (define-key yaml-mode-map "\C-m" 'newline-and-indent))))  
+
 (use-package filladapt
   :config
   (setq-default filladapt-mode t))
