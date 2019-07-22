@@ -290,7 +290,7 @@
  ;;                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  ;; Don't omit parent directory (why?!! would anyone do this?)
  dired-omit-files (concat "^\\.?#\\|^\\.$\\\|_flymake\\.py$\\|"
-                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
+                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache^\\|^__pycache__")
  display-buffer-reuse-frames t          ; multiple monitors
  inhibit-startup-screen t
  line-number-mode t
