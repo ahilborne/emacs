@@ -68,6 +68,7 @@
 (defvar myPackages '(
     ; better-defaults
     use-package
+    gnu-elpa-keyring-update             ; keep signatures up-to-date
     material-theme))
 
 (mapc #'(lambda (package)
