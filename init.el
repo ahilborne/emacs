@@ -348,7 +348,7 @@
       auth-sources '((:source "~/.authinfo.gpg")))
 
 ;; Could change this for different hosts e.g. Powervault/elsewhere
-(customize-set-variable 'tramp-default-user "root")
+(customize-set-variable 'tramp-default-user "amh")
 
 ;; Fix for ediff problem
 (set-variable 'ediff-coding-system-for-write 'raw-text)
@@ -432,7 +432,8 @@
 (use-package org
   :after org-bullets
   :config
-  (setq org-src-fontify-natively t
+  (setq org-archive-location "~/org/archive.org::"
+        org-src-fontify-natively t
         org-hide-emphasis-markers t
         org-default-notes-file (concat org-directory "/notes.org")
         org-export-backends '(ascii html icalendar latex md odt))
