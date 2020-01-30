@@ -372,6 +372,7 @@
              ;; (dired-hide-details-mode)
              ;; periodically revert, but see also dired-auto-revert-buffer
              (auto-revert-mode)
+             (set-variable 'dired-omit-verbose nil)
              (dired-omit-mode)
              ;; revert silently
              (setq auto-revert-verbose nil)))
