@@ -17,6 +17,9 @@
 
 ; 4. Do I need use-package :ensure?
 
+;; XXX Only needed on a new host
+;; (setq package-check-signature nil)
+
 ;; START - especially load-path
 ;; --------------------------------------
 
