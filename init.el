@@ -311,7 +311,7 @@
  mouse-yank-at-point t
  scroll-step 1
  set-scroll-bar-mode 'right
- split-width-threshold 150              ; for narrower-than laptop display
+ split-width-threshold 140              ; for narrower-than laptop display
  vc-revert-show-diff nil
  visible-bell t
  )
