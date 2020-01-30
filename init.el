@@ -534,6 +534,10 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 (global-set-key (kbd "M-s s") 'jump-to-scratch)
 (global-set-key [f6] 'jump-to-scratch)
 
+;; Per-frame zoom
+(load "zoom-frm")
+(global-set-key (kbd "C-x z") 'zoom-in/out)
+
 ;; Add final message so using C-h l I can see if init failed
 (message "init.el loaded successfully.")
 
