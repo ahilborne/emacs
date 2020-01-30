@@ -32,6 +32,15 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
+;; Fonts - try again
+;; --------------------------------------
+(set-face-attribute 'default nil
+                    :family "Source Code Pro"
+                    :height 120
+                    :weight 'normal
+                    :width 'normal)
+
+
 ;; INITIAL PACKAGES
 ;; --------------------------------------
 
