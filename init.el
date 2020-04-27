@@ -37,6 +37,7 @@
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
                     :height 120
+                    :slant 'normal
                     :weight 'normal
                     :width 'normal)
 
@@ -110,7 +111,9 @@
   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
   (setq python-shell-interpreter "ipython"
 	python-shell-interpreter-args "-i --simple-prompt"
+;;	python-shell-interpreter-args "-i" ; XXX for build server
         gud-pdb-command-name "python -m pdb"
+        enable-remote-dir-locals t
         comint-scroll-show-maximum-output nil) ; see var docs
   (add-hook 'python-mode-hook
             (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace))
@@ -135,6 +138,14 @@
 (use-package csv-mode)
 
 (use-package ibuffer-vc)                ; VC column for ibuffer
+
+(use-package projectile
+  :ensure t
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1)
+  (setq projectile-project-search-path '("~/pv")))
 
 (use-package magit
   :commands global-magit-file-mode
