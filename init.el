@@ -145,7 +145,9 @@
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1)
-  (setq projectile-project-search-path '("~/pv")))
+  (setq projectile-project-search-path '("~/pv")
+        projectile-switch-project-action #'projectile-dired
+        projectile-enable-caching t))
 
 (use-package magit
   :commands global-magit-file-mode
