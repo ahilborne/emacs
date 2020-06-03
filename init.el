@@ -528,6 +528,11 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 
 (add-hook 'hs-minor-mode-hook 'my-hs-minor-mode-map-fix)
 
+;; Change default action for \r in dired to make browsing quicker. Can
+;; still open fle at point using 'o'.
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "\r") #'dired-view-file))
+
 ;; CPerl mode
 (setq cperl-brace-offset -4
       cperl-indent-level 4)
