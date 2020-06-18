@@ -289,6 +289,11 @@
   :after treemacs magit
   :ensure t)
 
+;; Wahay! - Locks a buffer to a window, we hope ;)
+(define-minor-mode sticky-buffer-mode "Make the current window always display
+    this buffer."  nil " sticky" nil (set-window-dedicated-p (selected-window)
+    sticky-buffer-mode))
+
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
 
