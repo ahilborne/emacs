@@ -472,7 +472,14 @@
         org-src-fontify-natively t
         org-hide-emphasis-markers t
         org-default-notes-file (concat org-directory "/notes.org")
-        org-export-backends '(ascii html icalendar latex md odt))
+        org-export-backends '(ascii html icalendar latex md odt)
+
+        org-refile-allow-creating-parent-nodes t
+        org-refile-use-outline-path t
+        org-outline-path-complete-in-steps t
+        org-refile-targets
+        '((nil :maxlevel . 2)
+          (("random.org") :maxlevel . 1)))
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
