@@ -463,7 +463,7 @@
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c l") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 (use-package org
   :after org-bullets
@@ -471,7 +471,7 @@
   (setq org-archive-location "~/org/archive.org::"
         org-src-fontify-natively t
         org-hide-emphasis-markers t
-        org-default-notes-file (concat org-directory "/notes.org")
+;;;        org-default-notes-file (concat org-directory "/notes.org")
         org-export-backends '(ascii html icalendar latex md odt)
 
         org-refile-allow-creating-parent-nodes t
@@ -479,7 +479,9 @@
         org-outline-path-complete-in-steps t
         org-refile-targets
         '((nil :maxlevel . 2)
-          (("random.org") :maxlevel . 1)))
+          (("random.org" "links.org") :maxlevel . 1)
+          ("staff.org" :maxlevel . 2)
+          ("todo.org" :maxlevel . 2)))
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
