@@ -483,7 +483,7 @@
         '((nil :maxlevel . 2)
           (("random.org" "links.org") :maxlevel . 1)
           ("staff.org" :maxlevel . 2)
-          ("todo.org" :maxlevel . 2)))
+          ("todo.org" :maxlevel . 2))
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
