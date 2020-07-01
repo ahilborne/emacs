@@ -178,7 +178,8 @@
                                       shell-command-switch "git ls-files"))
              (error "Not a git repo")))))))
 
-  :bind ("C-x g" . magit-status))
+  :bind ("C-x g" . magit-status)
+        ("C-x M-g" . magit-dispatch))
 
 (use-package markdown-mode
   :config
@@ -474,16 +475,20 @@
         org-default-notes-file (concat org-directory "/todo.org")
         org-agenda-files '("~/pv/wip/WIP.org" "~/org")
 
-        org-export-backends '(ascii html icalendar latex md odt)
+        org-export-backends '(ascii html iacalendar latex md odt))
 
-        org-refile-allow-creating-parent-nodes t
+  (defun my-org-files-list ()
+    (remove (expand-file-name "~/org/archive.org")
+            (directory-files "~/org" t ".*\.org")))
+
+  (setq org-refile-allow-creating-parent-nodes t
         org-refile-use-outline-path t
         org-outline-path-complete-in-steps t
+
         org-refile-targets '((nil :maxlevel . 2)
-                             (("random.org" "links.org") :maxlevel . 1)
+                             (my-org-files-list :maxlevel . 2)
                              ("staff.org" :maxlevel . 2)
-                             ("todo.org" :maxlevel . 2)
-                             ("~/pv/wip/WIP.org" :maxlevel . 1)))
+                             ("todo.org" :maxlevel . 2)))
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
