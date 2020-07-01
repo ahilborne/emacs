@@ -471,7 +471,9 @@
   (setq org-archive-location "~/org/archive.org::"
         org-src-fontify-natively t
         org-hide-emphasis-markers t
-;;;        org-default-notes-file (concat org-directory "/notes.org")
+        org-default-notes-file (concat org-directory "/todo.org")
+        org-agenda-files '("~/pv/wip/WIP.org" "~/org"))
+
         org-export-backends '(ascii html icalendar latex md odt)
 
         org-refile-allow-creating-parent-nodes t
