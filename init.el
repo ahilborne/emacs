@@ -487,6 +487,7 @@
 
         org-refile-targets '((nil :maxlevel . 2)
                              (my-org-files-list :maxlevel . 2)
+                             ("~/pv/wip/oWIP.org" :maxlevel . 1)
                              ("staff.org" :maxlevel . 2)
                              ("todo.org" :maxlevel . 2)))
 
