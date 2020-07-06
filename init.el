@@ -572,11 +572,23 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 ;; One-handed (telephone) notebook
 (defun jump-to-scratch()
   (interactive)
-  (find-file "~/org/quick-notes.org")
-  )
+  (find-file "~/org/notes.org"))
+
 ;  (text-mode))
 (global-set-key (kbd "M-s s") 'jump-to-scratch)
 (global-set-key [f6] 'jump-to-scratch)
+
+;; Create a quick note
+(defun make-quick-note()
+  (interactive)
+  (org-capture nil "Q"))
+(global-set-key (kbd "C-c q") 'make-quick-note)
+
+;; Jump to WIP.org
+(defun jump-to-WIP()
+  (interactive)
+  (bookmark-jump "WIP"))
+(global-set-key (kbd "C-c w") 'jump-to-WIP)
 
 ;; Per-frame zoom
 (load "zoom-frm")
