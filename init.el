@@ -587,7 +587,7 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 ;; Jump to WIP.org
 (defun jump-to-WIP()
   (interactive)
-  (bookmark-jump "WIP"))
+  (bookmark-jump "wip"))
 (global-set-key (kbd "C-c w") 'jump-to-WIP)
 
 ;; Per-frame zoom
