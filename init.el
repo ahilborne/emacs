@@ -302,6 +302,7 @@
 ;; (set-face-attribute 'default nil :family "Courier" :foundry "Adobe" :height 87)
 ;; TODO install Source Code Pro first
 (set-face-attribute 'default nil :family "Source Code Pro" :foundry "ADBO" :height 87)
+(setq delete-selection-mode 1)
 
 ;; Global values for variables. Shouldn't be used for vars which can be
 ;; buffer-local
