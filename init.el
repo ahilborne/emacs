@@ -290,6 +290,8 @@
   :after treemacs magit
   :ensure t)
 
+(use-package realgud)
+
 ;; Wahay! - Locks a buffer to a window, we hope ;)
 (define-minor-mode sticky-buffer-mode "Make the current window always display
     this buffer."  nil " sticky" nil (set-window-dedicated-p (selected-window)
@@ -486,6 +488,8 @@
   (setq org-refile-allow-creating-parent-nodes t
         org-refile-use-outline-path t
         org-outline-path-complete-in-steps t
+        org-blank-before-new-entry '((heading . nil)
+                                     (plain-list-item . auto))
 
         org-refile-targets '((nil :maxlevel . 2)
                              (my-org-files-list :maxlevel . 2)
@@ -506,10 +510,20 @@
 
     (visual-line-mode)
     (org-indent-mode)
-    (org-bullets-mode))
+    (org-bullets-mode)
+    (auto-save-visited-mode)
+
+;   (set (make-local-variable 'auto-save-visited-file-name) t)
+    (setq auto-save-interval 20))
 
   (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
 
+
+(add-hook 'org-mode-hook 'my-org-mode-autosave-settings)
+(defun my-org-mode-autosave-settings ()
+  ;; (auto-save-mode 1)   ; this is unnecessary as it is on by default
+  (set (make-local-variable 'auto-save-visited-file-name) t)
+  (setq auto-save-interval 20))
 
 ;; text-mode
 ;; Moved auto-fill-mode here to try and improve when it is actually turned on
@@ -587,10 +601,10 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 (global-set-key [f6] 'make-quick-note)
 
 ;; Jump to WIP.org
-(defun jump-to-WIP()
+(defun jump-to-wip()
   (interactive)
   (bookmark-jump "wip"))
-(global-set-key (kbd "C-c w") 'jump-to-WIP)
+(global-set-key (kbd "C-c w") 'jump-to-wip)
 
 ;; Per-frame zoom
 (load "zoom-frm")
