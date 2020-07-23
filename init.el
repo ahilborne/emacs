@@ -491,11 +491,12 @@
         org-blank-before-new-entry '((heading . nil)
                                      (plain-list-item . auto))
 
-        org-refile-targets '((nil :maxlevel . 2)
-                             (my-org-files-list :maxlevel . 2)
-                             ("~/pv/wip/oWIP.org" :maxlevel . 1)
-                             ("staff.org" :maxlevel . 2)
-                             ("todo.org" :maxlevel . 2)))
+        ;; org-refile-targets '((nil :maxlevel . 2)
+        ;;                      (my-org-files-list :maxlevel . 2)
+        ;;                      ("~/pv/wip/oWIP.org" :maxlevel . 1)
+        ;;                      ("staff.org" :maxlevel . 2)
+        ;;                      ("todo.org" :maxlevel . 2)))
+        )
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
@@ -512,8 +513,6 @@
     (org-indent-mode)
     (org-bullets-mode)
     (auto-save-visited-mode)
-
-;   (set (make-local-variable 'auto-save-visited-file-name) t)
     (setq auto-save-interval 20))
 
   (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
