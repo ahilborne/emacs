@@ -518,13 +518,6 @@
 
   (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
 
-
-(add-hook 'org-mode-hook 'my-org-mode-autosave-settings)
-(defun my-org-mode-autosave-settings ()
-  ;; (auto-save-mode 1)   ; this is unnecessary as it is on by default
-  (set (make-local-variable 'auto-save-visited-file-name) t)
-  (setq auto-save-interval 20))
-
 ;; text-mode
 ;; Moved auto-fill-mode here to try and improve when it is actually turned on
 (add-hook 'text-mode-hook '(lambda()
