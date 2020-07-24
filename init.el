@@ -304,8 +304,7 @@
 ;; (set-face-attribute 'default nil :family "Courier" :foundry "Adobe" :height 87)
 ;; TODO install Source Code Pro first
 (set-face-attribute 'default nil :family "Source Code Pro" :foundry "ADBO" :height 87)
-(setq delete-selection-mode 1
-      kill-buffer-query-functions nil)
+(setq kill-buffer-query-functions nil)
 
 ;; Global values for variables. Shouldn't be used for vars which can be
 ;; buffer-local
@@ -355,6 +354,7 @@
     (window-divider-mode t))
   (show-paren-mode t)
   (tool-bar-mode 0)
+  (delete-selection-mode t)
 (blink-cursor-mode 0))
 
 ;; Filling
