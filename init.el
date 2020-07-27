@@ -470,6 +470,8 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 
+(require 'real-auto-save)
+
 (use-package org
   :after org-bullets
   :config
@@ -512,8 +514,8 @@
     (visual-line-mode)
     (org-indent-mode)
     (org-bullets-mode)
-    (auto-save-visited-mode)
-    (setq auto-save-interval 20))
+    (real-auto-save-mode)
+    (setq real-auto-save-interval 20))
 
   (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
 
