@@ -423,6 +423,7 @@
 	     (ibuffer-auto-mode 1)
              (ibuffer-switch-to-saved-filter-groups "std")))
 ;;           (ibuffer-vc-set-filter-groups-by-vc-root)))   ; Group by .git project
+                                                           ; Much too slow over TRAMP
 
 ;; Even more like e-buf-list - this puts cursor on last-changed buffer.
 ;; One of several solutions from https://www.emacswiki.org/emacs/IbufferMode.
