@@ -316,8 +316,10 @@
  completion-ignored-extensions
    (quote ("CM/" "CVS/" ".so" ".o" ".obj" ".elc" "~" ".bin" ".lbin" ".dvi" ".class"))
  delete-key-deletes-forward t
- delete-selection-mode 1
  desktop-dirname (getenv "HOME")
+ ;; Original excludes remote files (buffers)
+ ;; desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\)"
+ desktop-files-not-to-save "^$"
  dired-auto-revert-buffer t
  dired-dwim-target t
  dired-listing-switches "-al"
