@@ -580,6 +580,7 @@ Note well that this function _removes_ itself from the hs-minor-mode hook when i
 (add-to-list 'auto-mode-alist '("\\.org$"  . org-mode))
 (add-to-list 'auto-mode-alist '("\\.ovpn$" . conf-space-mode))
 (add-to-list 'auto-mode-alist '("\\.conf$" . conf-space-mode))
+(add-to-list 'auto-mode-alist '("\\.bb\\(append\\|class\\)?$" . conf-space-mode))
 
 ;; One-handed (telephone) notebook
 (defun jump-to-scratch()
