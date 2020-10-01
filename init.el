@@ -488,7 +488,8 @@
     (remove (expand-file-name "~/org/archive.org")
             (directory-files "~/org" t ".*\.org")))
 
-  (setq org-refile-allow-creating-parent-nodes t
+  (setq org-tags-column -50
+        org-refile-allow-creating-parent-nodes t
         org-refile-use-outline-path t
         org-outline-path-complete-in-steps t
         org-blank-before-new-entry '((heading . nil)
