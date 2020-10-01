@@ -356,7 +356,6 @@
     (window-divider-mode t))
   (show-paren-mode t)
   (tool-bar-mode 0)
-  (delete-selection-mode t)
 (blink-cursor-mode 0))
 
 ;; Filling
