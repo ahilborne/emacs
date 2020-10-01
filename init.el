@@ -483,7 +483,7 @@
         org-default-notes-file (concat org-directory "/todo.org")
         org-agenda-files '("~/pv/wip/WIP.org" "~/org")
 
-        org-export-backends '(ascii html iacalendar latex md odt))
+        org-export-backends '(ascii html iacalendar latex md))
 
   (defun my-org-files-list ()
     (remove (expand-file-name "~/org/archive.org")
