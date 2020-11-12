@@ -481,9 +481,21 @@
         org-src-fontify-natively t
         org-hide-emphasis-markers t
         org-default-notes-file (concat org-directory "/todo.org")
-        org-agenda-files '("~/pv/wip/WIP.org" "~/org")
+        org-agenda-files '("~/me/wip/wip.org" "~/org")
+        org-agenda-show-inherited-tags nil
 
-        org-export-backends '(ascii html iacalendar latex md))
+        org-export-backends '(ascii html iacalendar latex md)
+
+        org-use-fast-todo-selection (quote expert)
+        org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")
+          (sequence "WAITING(w)" "RESPONDED(r)" "|" "FINISHED(f)")
+          (sequence "URGENT(u)" "INPROGRESS(i)" "ACTION(a)" "|" "OVER(o)"))
+
+        org-todo-keyword-faces
+        '(("TODO" . org-warning)
+          ("WAITING" . (:foreground "orange" :weight bold))
+          ("RESPONDED" . (:foreground "yellow" :weight bold))
+          ("CANCELED" . (:foreground "blue" :weight bold))))
 
   (defun my-org-files-list ()
     (remove (expand-file-name "~/org/archive.org")
