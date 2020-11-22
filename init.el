@@ -497,7 +497,7 @@
           ("RESPONDED" . (:foreground "yellow" :weight bold))
           ("CANCELED" . (:foreground "blue" :weight bold)))
 
-        (setq org-agenda-custom-commands
+        org-agenda-custom-commands
         (quote
          (("n" "Agenda and all TODOs"
            ((agenda "" nil)
@@ -505,15 +505,17 @@
            nil)
 
           ("w" "Weekly meetings"
-           ((tags-todo "ThisW" nil)
+           ((tags-todo "thisW" nil)
             (agenda "" nil))
-           ((org-agenda-tag-filter-preset (quote ("+ThisW")))))
+           ((org-agenda-tag-filter-preset (quote ("+thisW")))
+            (org-agenda-use-tag-inheritance nil)))
 
           ("j" "New job!"
            ((tags-todo "newjob" nil)
             (agenda "" ((org-agenda-span 'day)) ))
            ((org-agenda-tag-filter-preset (quote ("+newjob")))
-            (org-agenda-prefix-format "   ")))
+;;            (org-agenda-prefix-format "  %s %?t ")
+            ))
           )
          )
         )
