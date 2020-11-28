@@ -518,11 +518,23 @@
             (org-agenda-use-tag-inheritance nil)))
 
           ("j" "New job!"
-           ((tags-todo "newjob" nil)
+           ((tags-todo "applications" nil)
+            (tags-todo "newjob" nil)
             (agenda "" ((org-agenda-span 'day)) ))
-           ((org-agenda-tag-filter-preset (quote ("+newjob")))
+           nil)
+
+          ("J" "New job FULL!"
+           ((tags-todo "applications" nil)
+            (tags-todo "newjob" nil)
+            (tags-todo "cleanup" nil)
+            (agenda "" ((org-agenda-span 'day)) ))
+           nil)
+
+;;
+;; ((org-agenda-tag-filter-preset (quote ("+newjob")))
 ;;            (org-agenda-prefix-format "  %s %?t ")
-            ))
+
+
           )
          )
         )
