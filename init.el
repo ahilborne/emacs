@@ -356,7 +356,7 @@
     (window-divider-mode t))
   (show-paren-mode t)
   (tool-bar-mode 0)
-(blink-cursor-mode 0))
+  (blink-cursor-mode 0))
 
 ;; Filling
 ;;; XXX (require 'filladapt)
@@ -557,86 +557,86 @@
 
         (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
 
-  ;; text-mode
-  ;; Moved auto-fill-mode here to try and improve when it is actually turned on
-  (add-hook 'text-mode-hook '(lambda()
-                               (auto-fill-mode 1)
-                               (setq fill-column 80)))
+;; text-mode
+;; Moved auto-fill-mode here to try and improve when it is actually turned on
+(add-hook 'text-mode-hook '(lambda()
+                             (auto-fill-mode 1)
+                             (setq fill-column 80)))
 
-  ;; sh-mode
-  (add-hook 'sh-mode-hook (lambda ()
-                            "-amh- sh-mode customisations"
-                            (progn
-                              (setq sh-indent-for-case-label 0
-                                    sh-indent-for-case-alt '+))))
+;; sh-mode
+(add-hook 'sh-mode-hook (lambda ()
+                          "-amh- sh-mode customisations"
+                          (progn
+                            (setq sh-indent-for-case-label 0
+                                  sh-indent-for-case-alt '+))))
 
-  ;; hs-minor-mode
-  (add-hook 'c-common-mode-hook (lambda () (hs-minor-mode 1)))
-  (add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
-  (add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
+;; hs-minor-mode
+(add-hook 'c-common-mode-hook (lambda () (hs-minor-mode 1)))
+(add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
+(add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
 
-  ;; occur mode
-  (add-hook 'occur-mode-hook
-            (lambda () (setq list-matching-lines-default-context-lines 4)))
+;; occur mode
+(add-hook 'occur-mode-hook
+          (lambda () (setq list-matching-lines-default-context-lines 4)))
 
-  (defun my-hs-minor-mode-map-fix () 
-    "Change the hs-minor-mode-map to use Control-C h as the prefix key.
+(defun my-hs-minor-mode-map-fix () 
+  "Change the hs-minor-mode-map to use Control-C h as the prefix key.
 - Run Once
 Note well that this function _removes_ itself from the hs-minor-mode hook when it is run."
-    (let ((map hs-minor-mode-map))
-      (define-key map "\C-c@\C-h"	         nil)
-      (define-key map "\C-c@\C-s"	         nil)
-      (define-key map "\C-c@\C-\M-h"       nil)
-      (define-key map "\C-c@\C-\M-s"       nil)
-      (define-key map "\C-c@\C-l"	         nil)
-      (define-key map "\C-c@\C-c"	         nil)
+  (let ((map hs-minor-mode-map))
+    (define-key map "\C-c@\C-h"	         nil)
+    (define-key map "\C-c@\C-s"	         nil)
+    (define-key map "\C-c@\C-\M-h"       nil)
+    (define-key map "\C-c@\C-\M-s"       nil)
+    (define-key map "\C-c@\C-l"	         nil)
+    (define-key map "\C-c@\C-c"	         nil)
 
-      (define-key map "\C-c\h\C-h"	'hs-hide-block)
-      (define-key map "\C-c\h\C-s"	'hs-show-block)
-      (define-key map "\C-c\h\C-\M-h"     'hs-hide-all)
-      (define-key map "\C-c\h\C-\M-s"     'hs-show-all)
-      (define-key map "\C-c\h\C-l"	'hs-hide-level)
-      (define-key map "\C-c\h\C-c"	'hs-toggle-hiding)
+    (define-key map "\C-c\h\C-h"	'hs-hide-block)
+    (define-key map "\C-c\h\C-s"	'hs-show-block)
+    (define-key map "\C-c\h\C-\M-h"     'hs-hide-all)
+    (define-key map "\C-c\h\C-\M-s"     'hs-show-all)
+    (define-key map "\C-c\h\C-l"	'hs-hide-level)
+    (define-key map "\C-c\h\C-c"	'hs-toggle-hiding)
 
-      (remove-hook 'hs-minor-mode-hook 'my-hs-minor-mode-map-fix)))
+    (remove-hook 'hs-minor-mode-hook 'my-hs-minor-mode-map-fix)))
 
-  (add-hook 'hs-minor-mode-hook 'my-hs-minor-mode-map-fix)
+(add-hook 'hs-minor-mode-hook 'my-hs-minor-mode-map-fix)
 
-  ;; Change default action for \r in dired to make browsing quicker. Can
-  ;; still open fle at point using 'o'.
-  (with-eval-after-load 'dired
-    (define-key dired-mode-map (kbd "\r") #'dired-view-file))
+;; Change default action for \r in dired to make browsing quicker. Can
+;; still open fle at point using 'o'.
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "\r") #'dired-view-file))
 
-  ;; CPerl mode
-  (setq cperl-brace-offset -4
-        cperl-indent-level 4)
+;; CPerl mode
+(setq cperl-brace-offset -4
+      cperl-indent-level 4)
 
-  ;; Associate extensions with modes
-  (add-to-list 'auto-mode-alist '("\\.h$"    . c++-mode))
-  (add-to-list 'auto-mode-alist '("\\.org$"  . org-mode))
-  (add-to-list 'auto-mode-alist '("\\.ovpn$" . conf-space-mode))
-  (add-to-list 'auto-mode-alist '("\\.conf$" . conf-space-mode))
-  (add-to-list 'auto-mode-alist '("\\.bb\\(append\\|class\\)?$" . conf-space-mode))
+;; Associate extensions with modes
+(add-to-list 'auto-mode-alist '("\\.h$"    . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.org$"  . org-mode))
+(add-to-list 'auto-mode-alist '("\\.ovpn$" . conf-space-mode))
+(add-to-list 'auto-mode-alist '("\\.conf$" . conf-space-mode))
+(add-to-list 'auto-mode-alist '("\\.bb\\(append\\|class\\)?$" . conf-space-mode))
 
-  ;; One-handed (telephone) notebook
-  (defun jump-to-scratch()
-    (interactive)
-    (find-file "~/org/notes.org"))
+;; One-handed (telephone) notebook
+(defun jump-to-scratch()
+  (interactive)
+  (find-file "~/org/notes.org"))
 
                                         ;  (text-mode))
-  (global-set-key (kbd "M-s s") 'jump-to-scratch)
+(global-set-key (kbd "M-s s") 'jump-to-scratch)
 
-  ;; Create a quick note
-  (defun make-quick-note()
-    (interactive)
-    (org-capture nil "Q"))
-  (global-set-key (kbd "C-c q") 'make-quick-note)
-  (global-set-key [f6] 'make-quick-note)
+;; Create a quick note
+(defun make-quick-note()
+  (interactive)
+  (org-capture nil "Q"))
+(global-set-key (kbd "C-c q") 'make-quick-note)
+(global-set-key [f6] 'make-quick-note)
 
-  ;; Jump to WIP.org
-  (defun jump-to-wip()
-    (interactive)
-    (bookmark-jump "wip"))
+;; Jump to WIP.org
+(defun jump-to-wip()
+  (interactive)
+  (bookmark-jump "wip"))
 (global-set-key (kbd "C-c w") 'jump-to-wip)
 
 ;; Per-frame zoom
