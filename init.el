@@ -492,11 +492,14 @@
 
         org-use-fast-todo-selection (quote expert)
         org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")
+          (sequence "EACHDAY(e)" "|" "CHECKED(c)")
           (sequence "WAITING(w)" "RESPONDED(r)" "|" "FINISHED(f)")
           (sequence "URGENT(u)" "INPROGRESS(i)" "ACTION(a)" "|" "OVER(o)"))
 
         org-todo-keyword-faces
         '(("TODO" . org-warning)
+          ("EACHDAY" . (:foreground "yellow" :weight bold))
+          ("CHECKED" . (:foreground "green" :weight bold))
           ("WAITING" . (:foreground "orange" :weight bold))
           ("RESPONDED" . (:foreground "yellow" :weight bold))
           ("CANCELED" . (:foreground "blue" :weight bold)))
