@@ -481,7 +481,11 @@
         org-src-fontify-natively t
         org-hide-emphasis-markers t
         org-default-notes-file (concat org-directory "/todo.org")
-        org-agenda-files '("~/me/wip/wip.org" "~/org")
+        org-agenda-files
+        (cons "~/me/wip/wip.org" 
+              (remove (expand-file-name "~/org/archive.org")
+                      (remove (expand-file-name "~/org/jobs_done.org")
+                              (directory-files "~/org" t ".*\.org"))))
         org-agenda-show-inherited-tags nil
 
         org-export-backends '(ascii html iacalendar latex md)
