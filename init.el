@@ -292,6 +292,123 @@
 
 (use-package realgud)
 
+;; Org mode
+(use-package org-bullets :demand)
+
+(use-package org
+  :after org-bullets
+  :config
+  (setq org-archive-location "~/org/archive.org::"
+        org-src-fontify-natively t
+        org-hide-emphasis-markers t
+        org-default-notes-file (concat org-directory "/todo.org")
+        org-agenda-files
+        (cons "~/me/wip/wip.org" 
+              (remove (expand-file-name "~/org/archive.org")
+                      (remove (expand-file-name "~/org/jobs_done.org")
+                              (directory-files "~/org" t ".*\.org"))))
+        org-agenda-show-inherited-tags nil
+
+        org-export-backends '(ascii html iacalendar latex md)
+
+        org-use-fast-todo-selection (quote expert)
+        org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")
+          (sequence "EACHDAY(e)" "|" "CHECKED(c)")
+          (sequence "WAITING(w)" "RESPONDED(r)" "|" "FINISHED(f)")
+          (sequence "URGENT(u)" "INPROGRESS(i)" "ACTION(a)" "|" "OVER(o)"))
+
+        org-todo-keyword-faces
+        '(("TODO" . org-warning)
+          ("EACHDAY" . (:foreground "yellow" :weight bold))
+          ("CHECKED" . (:foreground "green" :weight bold))
+          ("WAITING" . (:foreground "orange" :weight bold))
+          ("RESPONDED" . (:foreground "yellow" :weight bold))
+          ("CANCELED" . (:foreground "blue" :weight bold)))
+
+        org-agenda-custom-commands
+        (quote
+         (("n" "Agenda and all TODOs"
+           ((agenda "" nil)
+            (alltodo "" nil))
+           nil)
+
+          ("w" "Weekly meetings"
+           ((tags-todo "thisW" nil)
+            (agenda "" nil))
+           ((org-agenda-tag-filter-preset (quote ("+thisW")))
+            (org-agenda-use-tag-inheritance nil)))
+
+          ("j" "New job!"
+           ((tags-todo "applications" nil)
+            (tags-todo "newjob" nil)
+            (agenda "" ((org-agenda-span 'day)) ))
+           nil)
+
+          ("J" "New job FULL!"
+           ((tags-todo "applications" nil)
+            (tags-todo "newjob" nil)
+            (tags-todo "cleanup" nil)
+            (agenda "" ((org-agenda-span 'day)) ))
+           nil)
+
+;;
+;; ((org-agenda-tag-filter-preset (quote ("+newjob")))
+;;            (org-agenda-prefix-format "  %s %?t ")
+
+
+          )
+         )
+        )
+
+        (defun my-org-files-list ()
+          (remove (expand-file-name "~/org/archive.org")
+                  (directory-files "~/org" t ".*\.org")))
+
+        (setq org-tags-column -50
+              org-refile-allow-creating-parent-nodes t
+              org-refile-use-outline-path t
+              org-outline-path-complete-in-steps t
+              org-blank-before-new-entry '((heading . nil)
+                                           (plain-list-item . auto))
+
+              ;; org-refile-targets '((nil :maxlevel . 2)
+              ;;                      (my-org-files-list :maxlevel . 2)
+              ;;                      ("~/pv/wip/oWIP.org" :maxlevel . 1)
+              ;;                      ("staff.org" :maxlevel . 2)
+              ;;                      ("todo.org" :maxlevel . 2)))
+              )
+
+        (setq org-capture-templates
+              '(("r" "Recruiter"
+                 entry (file+headline "~/org/notes.org" "Recruiter calls")
+                 "*** URGENT %?\n  %i")
+                ))
+
+        (require 'ox-latex)
+        (unless (boundp 'org-latex-classes)
+          (setq org-latex-classes nil))
+        (add-to-list 'org-latex-classes
+                     '("article"
+                       "\\documentclass{article}"
+                       ("\\section{%s}" . "\\section*{%s}")))
+
+        (defun my/org-mode-buffer-setup ()
+          "Per-buffer setup for org mode"
+
+          (visual-line-mode)
+          (org-indent-mode)
+          (org-bullets-mode)
+          (real-auto-save-mode)
+          (setq real-auto-save-interval 20))
+
+        (add-hook 'org-mode-hook 'my/org-mode-buffer-setup))
+
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(require 'real-auto-save)
+
 ;; Wahay! - Locks a buffer to a window, we hope ;)
 (define-minor-mode sticky-buffer-mode "Make the current window always display
     this buffer."  nil " sticky" nil (set-window-dedicated-p (selected-window)
