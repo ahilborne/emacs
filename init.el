@@ -557,6 +557,12 @@
               ;;                      ("todo.org" :maxlevel . 2)))
               )
 
+        (setq org-capture-templates
+              '(("r" "Recruiter"
+                 entry (file+headline "~/org/notes.org" "Recruiter calls")
+                 "*** URGENT %?\n  %i")
+                ))
+
         (require 'ox-latex)
         (unless (boundp 'org-latex-classes)
           (setq org-latex-classes nil))
