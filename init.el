@@ -414,7 +414,8 @@
   :ensure t
   :mode ("\\.go\\'" . go-mode)  
   :bind (:map go-mode-map
-              ("M-." . 'godef-jump))
+              ("C-c C-c" . my/compile)
+              ("M-."     . 'godef-jump))
   :config
   (defun my/go-mode-buffer-setup ()
     "-amh- customisations for Go mode"
@@ -425,12 +426,21 @@
       (auto-complete-mode 1)
       (setq-local comment-auto-fill-only-comments t)
       (setq
-       indent-tabs-mode nil
+       indent-tabs-mode t
        tab-width 4)))
-  (add-hook 'go-mode-hook 'my/go-mode-buffer-setup))
+  (add-hook 'go-mode-hook 'my/go-mode-buffer-setup)
+
+  (defun my/compile ()
+    "-amh- Save then compile"
+    (progn
+      (save-buffer)
+      (compile))))
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "elisp/goflymake")))
 (require 'go-flymake)
+
+;; Still go-mode
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; Wahay! - Locks a buffer to a window, we hope ;)
 (define-minor-mode sticky-buffer-mode "Make the current window always display
