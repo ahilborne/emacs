@@ -338,6 +338,12 @@
            ((org-agenda-tag-filter-preset (quote ("+thisW")))
             (org-agenda-use-tag-inheritance nil)))
 
+          ("f" "Rev17 in factory quick hack"
+           ((tags-todo "factory" nil)
+            (agenda "" nil))
+           ((org-agenda-tag-filter-preset (quote ("+factory")))
+            (org-agenda-use-tag-inheritance nil)))
+
           ("j" "New job!"
            ((tags-todo "applications" nil)
             (tags-todo "newjob" nil)
@@ -412,11 +418,7 @@
 (use-package go-mode
   :defer t
   :ensure t
-  :mode ("\\.go\\'" . go-mode)  
-  :bind (:map go-mode-map
-              ("C-c C-c" . my/compile)
-              ("M-."     . 'godef-jump))
-  :config
+  :init
   (defun my/go-mode-buffer-setup ()
     "-amh- customisations for Go mode"
     (progn
@@ -424,17 +426,24 @@
           (set (make-local-variable 'compile-command)
                "go build -v && go test -v && go vet"))
       (auto-complete-mode 1)
+      (hs-minor-mode 1)
       (setq-local comment-auto-fill-only-comments t)
       (setq
+       ;; gofmt-command 'goimports
        indent-tabs-mode t
        tab-width 4)))
-  (add-hook 'go-mode-hook 'my/go-mode-buffer-setup)
-
   (defun my/compile ()
     "-amh- Save then compile"
     (progn
       (save-buffer)
-      (compile))))
+      (compile)))
+
+  :mode ("\\.go\\'" . go-mode)  
+  :bind (:map go-mode-map
+              ("C-c C-c" . 'compile)
+              ("M-."     . 'godef-jump))
+  :config
+  (add-hook 'go-mode-hook 'my/go-mode-buffer-setup))
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "elisp/goflymake")))
 (require 'go-flymake)
