@@ -3,5 +3,6 @@
 
 .gitignore
 
+!elisp/**
 !*-theme.el
 !init.el
