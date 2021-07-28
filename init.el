@@ -61,6 +61,9 @@
 (add-to-list 'package-archives
        '("melpa" . "http://melpa.org/packages/") t)
 
+; Version 27+ deprecates the cl library
+(setq byte-compile-warnings '(cl-functions))
+
 ; Current magit doesn't support emacs 24 (Will be *much* slower, according to the author)
 (if (version< emacs-version "25")
     (progn
@@ -137,7 +140,8 @@
 
 (use-package csv-mode)
 
-(use-package ibuffer-vc)                ; VC column for ibuffer
+;; (use-package ibuffer-vc                 ; VC column for ibuffer
+;;   :demand)
 
 (use-package projectile
   :ensure t
@@ -150,14 +154,20 @@
         projectile-enable-caching t))
 
 (use-package magit
-  :commands global-magit-file-mode
+;; XXX Broken  :commands global-magit-file-mode
   :init
   ;; Minor mode with a few key bindings
-  (global-magit-file-mode 1)
+;; XXX Broken  (global-magit-file-mode 1)
   :config
   ;; See docs for magit-log-margin FIXME: not working yet?
   (setq magit-log-margin '(t age-abbreviated magit-log-margin-width nil 18))
 
+  ;; submodules
+  (magit-add-section-hook 'magit-status-sections-hook
+                          'magit-insert-modules
+                          'magit-insert-unpulled-from-upstream)
+  (setq magit-module-sections-nested nil)
+  
   (defun my-git-dired (dir)
     (interactive
      "DDirectory inside a git repository: \n")
@@ -181,11 +191,7 @@
   :bind ("C-x g" . magit-status)
         ("C-x M-g" . magit-dispatch))
 
-(use-package markdown-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode)))
-
-(use-package undo-tree                  ; better (and visual) undo handling
+(use-package undo-tree                  ; better (visual) undo handling
   :config
   (global-undo-tree-mode))
 
@@ -204,7 +210,7 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.yml$"   . yaml-mode))
   (add-hook 'yaml-mode-hook
-    '(lambda ()
+     '(lambda ()
        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))  
 
 (use-package filladapt
@@ -213,7 +219,8 @@
 
 (use-package markdown-mode
   :config
-  (setq markdown-command "pandoc --from=markdown --to=html --standalone --mathjax --highlight-style=pygments"))
+  (setq markdown-command "pandoc --from=markdown --to=html --standalone --mathjax --highlight-style=pygments")
+  (add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode)))
 
 (use-package treemacs-magit
   :after treemacs magit
@@ -272,19 +279,19 @@
           ;;  ((org-agenda-tag-filter-preset (quote ("+factory")))
           ;;   (org-agenda-use-tag-inheritance nil)))
 
-          ("j" "New job!"
+          ("v" "Veea"
            ((tags-todo "todo" nil)
-            (tags-todo "applications" nil)
-            (tags-todo "home" nil)
-            (tags-todo "newjob" nil)
+            (tags-todo "veea+today" nil)
             (agenda "" ((org-agenda-span 'day)) ))
            nil)
 
-          ("J" "New job FULL!"
-           ((tags-todo "applications" nil)
+          ("V" "Veea FULL!"
+           ((tags-todo "todo" nil)
             (tags-todo "home" nil)
-            (tags-todo "newjob" nil)
-            (tags-todo "cleanup" nil)
+            (tags-todo "veea+today" nil)
+            (tags-todo "veea+later" nil)
+            (tags-todo "veea+background" nil)
+            (tags-todo "veea+personal" nil)
             (agenda "" ((org-agenda-span 'day)) ))
            nil)
 
@@ -416,7 +423,7 @@
  ;; dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
  ;;                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  ;; Don't omit parent directory (why?!! would anyone do this?)
- dired-omit-files (concat "^\\.?#\\|^\\.$\\\|_flymake\\.py$\\|"
+ dired-omit-files (concat "^\\.?#\\|^\\.$\\\|_flymake\\.py$\\|^\\.editorconfig\\|"
                           "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache^\\|^__pycache__")
  display-buffer-reuse-frames t          ; multiple monitors
  inhibit-startup-screen t
@@ -494,6 +501,11 @@
 ;; IBUFFER
 ;; -------
 
+(use-package ibuffer-project
+  :demand
+  :init
+  (setq ibuffer-project-use-cache t))
+
 ;; Keys for electric-buffer/ibuffer
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
@@ -512,9 +524,10 @@
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
 	     (ibuffer-auto-mode 1)
-             (ibuffer-switch-to-saved-filter-groups "std")))
-;;           (ibuffer-vc-set-filter-groups-by-vc-root)))   ; Group by .git project
-                                                           ; Much too slow over TRAMP
+;; --        (ibuffer-switch-to-saved-filter-groups "std")
+             (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups)) ; By .git P
+             )
+          )
 
 ;; Even more like e-buf-list - this puts cursor on last-changed buffer.
 ;; One of several solutions from https://www.emacswiki.org/emacs/IbufferMode.
@@ -531,8 +544,8 @@
               " "
               (mode 16 16 :left :elide)
               " "
-              (vc-status 14 14 :left)
-              " " filename-and-process)
+              " " project-file-relative)
+              ;;              " " filename)
         (mark " "
               (name 16 -1)
               " " filename)))
@@ -540,8 +553,8 @@
 ;; Re-enable SPACE as completion character in find-file, etc. See etc/NEWS 22.1.
 (define-key minibuffer-local-filename-completion-map
   " " 'minibuffer-complete-word)
-(define-key minibuffer-local-must-match-filename-map
-  " " 'minibuffer-complete-word)  
+;; XXX Not on ubu (define-key minibuffer-local-must-match-filename-map
+;;   " " 'minibuffer-complete-word)  
 
 ;; Setup for modes
 
@@ -568,6 +581,11 @@
                             (setq sh-indent-for-case-label 0
                                   sh-indent-for-case-alt '+))))
 
+;; follow-mouse
+(require 'follow-mouse)
+(setq follow-mouse-deselect-active-minibuffer nil)
+(turn-on-follow-mouse)
+
 ;; man-mode
 (require 'man)
 (progn
@@ -580,6 +598,7 @@
 (add-hook 'c-common-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
+(add-hook 'makefile-mode-hook (lambda () (hs-minor-mode 1)))
 
 ;; occur mode
 (add-hook 'occur-mode-hook
