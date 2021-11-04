@@ -137,6 +137,7 @@
 
 (use-package csv-mode)
 
+;; Maybe this is slowing things down (and we aren't displaying this column in ibufffer anyway!
 (use-package ibuffer-vc)                ; VC column for ibuffer
 
 (use-package projectile
@@ -149,15 +150,22 @@
         projectile-switch-project-action #'projectile-dired
         projectile-enable-caching t))
 
+
 (use-package magit
-  :commands global-magit-file-mode
+;; XXX Broken  :commands global-magit-file-mode
   :init
   ;; Minor mode with a few key bindings
-  (global-magit-file-mode 1)
+;; XXX Broken  (global-magit-file-mode 1)
   :config
   ;; See docs for magit-log-margin FIXME: not working yet?
   (setq magit-log-margin '(t age-abbreviated magit-log-margin-width nil 18))
 
+  ;; submodules
+  (magit-add-section-hook 'magit-status-sections-hook
+                          'magit-insert-modules
+                          'magit-insert-unpulled-from-upstream)
+  (setq magit-module-sections-nested nil)
+  
   (defun my-git-dired (dir)
     (interactive
      "DDirectory inside a git repository: \n")
@@ -215,9 +223,9 @@
   :config
   (setq markdown-command "pandoc --from=markdown --to=html --standalone --mathjax --highlight-style=pygments"))
 
-(use-package treemacs-magit
-  :after treemacs magit
-  :ensure t)
+;; (use-package treemacs-magit
+;;   :after treemacs magit
+;;   :ensure t)
 
 (use-package realgud)
 
@@ -272,19 +280,19 @@
           ;;  ((org-agenda-tag-filter-preset (quote ("+factory")))
           ;;   (org-agenda-use-tag-inheritance nil)))
 
-          ("j" "New job!"
+          ("v" "Veea"
            ((tags-todo "todo" nil)
-            (tags-todo "applications" nil)
-            (tags-todo "home" nil)
-            (tags-todo "newjob" nil)
+            (tags-todo "veea+today" nil)
             (agenda "" ((org-agenda-span 'day)) ))
            nil)
 
-          ("J" "New job FULL!"
-           ((tags-todo "applications" nil)
+          ("V" "Veea FULL!"
+           ((tags-todo "todo" nil)
             (tags-todo "home" nil)
-            (tags-todo "newjob" nil)
-            (tags-todo "cleanup" nil)
+            (tags-todo "veea+today" nil)
+            (tags-todo "veea+later" nil)
+            (tags-todo "veea+background" nil)
+            (tags-todo "veea+personal" nil)
             (agenda "" ((org-agenda-span 'day)) ))
            nil)
 
@@ -387,6 +395,10 @@
     this buffer."  nil " sticky" nil (set-window-dedicated-p (selected-window)
     sticky-buffer-mode))
 
+;; Ediff
+(setq
+ ediff-split-window-function 'split-window-horizontally)
+
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
 
@@ -416,7 +428,7 @@
  ;; dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
  ;;                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  ;; Don't omit parent directory (why?!! would anyone do this?)
- dired-omit-files (concat "^\\.?#\\|^\\.$\\\|_flymake\\.py$\\|"
+ dired-omit-files (concat "^\\.?#\\|^\\.$\\\|_flymake\\.py$\\|^\\.editorconfig\\|"
                           "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache^\\|^__pycache__")
  display-buffer-reuse-frames t          ; multiple monitors
  inhibit-startup-screen t
@@ -426,6 +438,7 @@
  scroll-step 1
  set-scroll-bar-mode 'right
  split-width-threshold 140              ; for narrower-than laptop display
+ vc-handled-backends '(Git)             ; try to speed up TRAMP
  vc-revert-show-diff nil
  visible-bell t
  )
@@ -474,6 +487,12 @@
       auth-source-debug t
       auth-sources '((:source "~/.authinfo.gpg")))
 
+(customize-set-variable
+ 'tramp-ssh-controlmaster-options
+ (concat
+   "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
+   "-o ControlMaster=auto -o ControlPersist=yes"))
+
 ;; Could change this for different hosts e.g. Powervault/elsewhere
 (customize-set-variable 'tramp-default-user "amh")
 
@@ -512,9 +531,10 @@
 (add-hook 'ibuffer-mode-hook
 	  '(lambda ()
 	     (ibuffer-auto-mode 1)
-             (ibuffer-switch-to-saved-filter-groups "std")))
-;;           (ibuffer-vc-set-filter-groups-by-vc-root)))   ; Group by .git project
-                                                           ; Much too slow over TRAMP
+;; --        (ibuffer-switch-to-saved-filter-groups "std")
+             (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups)) ; By .git P
+             )
+          )
 
 ;; Even more like e-buf-list - this puts cursor on last-changed buffer.
 ;; One of several solutions from https://www.emacswiki.org/emacs/IbufferMode.
@@ -531,8 +551,7 @@
               " "
               (mode 16 16 :left :elide)
               " "
-              (vc-status 14 14 :left)
-              " " filename-and-process)
+              " " project-file-relative)
         (mark " "
               (name 16 -1)
               " " filename)))
@@ -580,6 +599,7 @@
 (add-hook 'c-common-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
+(add-hook 'makefile-mode-hook (lambda () (hs-minor-mode 1)))
 
 ;; occur mode
 (add-hook 'occur-mode-hook
