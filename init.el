@@ -105,27 +105,27 @@
   :config
   (load-theme 'material t))
 
-(use-package elpy
-  ;; Since we don't (for example) hook into python-mode to enable
-  ;; elpy, it may never be started without :demand.
-  :demand
-  :bind ([remap elpy-shell-kill-all] . elpy-shell-kill)
-  :config
-  (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
-  (setq python-shell-interpreter "ipython"
-	python-shell-interpreter-args "-i --simple-prompt"
-;;	python-shell-interpreter-args "-i" ; XXX for build server
-        gud-pdb-command-name "python -m pdb"
-        enable-remote-dir-locals t
-        comint-scroll-show-maximum-output nil) ; see var docs
-  (add-hook 'python-mode-hook
-            (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace))
-            (lambda()(pyvenv-mode)(pyvenv-tracking-mode))
-            (lambda()(toggle-truncate-lines)))
-  (add-hook 'elpy-mode-hook
-            (lambda ()(elpy-shell-set-local-shell (elpy-project-root))))
-  (elpy-enable)
-)
+;; (use-package elpy
+;;   ;; Since we don't (for example) hook into python-mode to enable
+;;   ;; elpy, it may never be started without :demand.
+;;   :demand
+;;   :bind ([remap elpy-shell-kill-all] . elpy-shell-kill)
+;;   :config
+;;   (setq elpy-modules (delete 'elpy-module-highlight-indentation elpy-modules))
+;;   (setq python-shell-interpreter "ipython"
+;; 	python-shell-interpreter-args "-i --simple-prompt"
+;; ;;	python-shell-interpreter-args "-i" ; XXX for build server
+;;         gud-pdb-command-name "python -m pdb"
+;;         enable-remote-dir-locals t
+;;         comint-scroll-show-maximum-output nil) ; see var docs
+;;   (add-hook 'python-mode-hook
+;;             (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace))
+;;             (lambda()(pyvenv-mode)(pyvenv-tracking-mode))
+;;             (lambda()(toggle-truncate-lines)))
+;;   (add-hook 'elpy-mode-hook
+;;             (lambda ()(elpy-shell-set-local-shell (elpy-project-root))))
+;;   (elpy-enable)
+;; )
 
 ;; enable autopep8 formatting on save with elpy
 ;; (use-package py-autopep8
@@ -389,6 +389,11 @@
 
 ;; Still go-mode
 (add-hook 'before-save-hook 'gofmt-before-save)
+
+(use-package deadgrep
+  :defer t
+  :init
+  (setq deadgrep-exec "/home/amh/veea/tools/sudorg"))
 
 ;; Wahay! - Locks a buffer to a window, we hope ;)
 (define-minor-mode sticky-buffer-mode "Make the current window always display
