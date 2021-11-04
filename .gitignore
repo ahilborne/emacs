@@ -1,8 +1,9 @@
-
+# Ignore everything
 *
 
-.gitignore
-
-!elisp/**
 !*-theme.el
 !init.el
+
+# This doesn't work - maybe because it's a directory which has already been excluded
+# We have to use `git add -f elisp/*`
+!elisp/**

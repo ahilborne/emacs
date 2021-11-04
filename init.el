@@ -61,6 +61,9 @@
 (add-to-list 'package-archives
        '("melpa" . "http://melpa.org/packages/") t)
 
+; Version 27+ deprecates the cl library
+(setq byte-compile-warnings '(cl-functions))
+
 ; Current magit doesn't support emacs 24 (Will be *much* slower, according to the author)
 (if (version< emacs-version "25")
     (progn
@@ -138,7 +141,7 @@
 (use-package csv-mode)
 
 ;; Maybe this is slowing things down (and we aren't displaying this column in ibufffer anyway!
-(use-package ibuffer-vc)                ; VC column for ibuffer
+;; (use-package ibuffer-vc)                ; VC column for ibuffer
 
 (use-package projectile
   :ensure t
@@ -189,11 +192,7 @@
   :bind ("C-x g" . magit-status)
         ("C-x M-g" . magit-dispatch))
 
-(use-package markdown-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode)))
-
-(use-package undo-tree                  ; better (and visual) undo handling
+(use-package undo-tree                  ; better (visual) undo handling
   :config
   (global-undo-tree-mode))
 
@@ -212,7 +211,7 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.yml$"   . yaml-mode))
   (add-hook 'yaml-mode-hook
-    '(lambda ()
+     '(lambda ()
        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))  
 
 (use-package filladapt
@@ -221,7 +220,8 @@
 
 (use-package markdown-mode
   :config
-  (setq markdown-command "pandoc --from=markdown --to=html --standalone --mathjax --highlight-style=pygments"))
+  (setq markdown-command "pandoc --from=markdown --to=html --standalone --mathjax --highlight-style=pygments")
+  (add-to-list 'auto-mode-alist '("\\.md$"   . markdown-mode)))
 
 ;; (use-package treemacs-magit
 ;;   :after treemacs magit
@@ -513,6 +513,11 @@
 ;; IBUFFER
 ;; -------
 
+(use-package ibuffer-project
+  :demand
+  :init
+  (setq ibuffer-project-use-cache t))
+
 ;; Keys for electric-buffer/ibuffer
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
@@ -552,6 +557,7 @@
               (mode 16 16 :left :elide)
               " "
               " " project-file-relative)
+              ;;              " " filename)
         (mark " "
               (name 16 -1)
               " " filename)))
@@ -559,8 +565,8 @@
 ;; Re-enable SPACE as completion character in find-file, etc. See etc/NEWS 22.1.
 (define-key minibuffer-local-filename-completion-map
   " " 'minibuffer-complete-word)
-(define-key minibuffer-local-must-match-filename-map
-  " " 'minibuffer-complete-word)  
+;; XXX Not on ubu (define-key minibuffer-local-must-match-filename-map
+;;   " " 'minibuffer-complete-word)  
 
 ;; Setup for modes
 
@@ -586,6 +592,11 @@
                           (progn
                             (setq sh-indent-for-case-label 0
                                   sh-indent-for-case-alt '+))))
+
+;; follow-mouse
+(require 'follow-mouse)
+(setq follow-mouse-deselect-active-minibuffer nil)
+(turn-on-follow-mouse)
 
 ;; man-mode
 (require 'man)
