@@ -52,6 +52,9 @@
 ; emacs as we want it on a brand new machine.
 (require 'package)
 
+;; hack for transient package
+ (setq package-install-upgrade-built-in t)
+
 ;; ;; Quelpa for git support inside use-package
 ;; (use-package quelpa-use-package
 ;;   :demand
@@ -143,15 +146,15 @@
 ;; Maybe this is slowing things down (and we aren't displaying this column in ibufffer anyway!
 ;; (use-package ibuffer-vc)                ; VC column for ibuffer
 
-(use-package projectile
-  :ensure t
-  :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1)
-  (setq projectile-project-search-path '("~/pv")
-        projectile-switch-project-action #'projectile-dired
-        projectile-enable-caching t))
+;; (use-package projectile
+;;   :ensure t
+;;   :config
+;;   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;;   (projectile-mode +1)
+;;   (setq projectile-project-search-path '("~/pv")
+;;         projectile-switch-project-action #'projectile-dired
+;;         projectile-enable-caching t))
 
 
 (use-package magit
@@ -194,6 +197,7 @@
 
 (use-package undo-tree                  ; better (visual) undo handling
   :config
+  (setq undo-tree-auto-save-history nil)
   (global-undo-tree-mode))
 
 (use-package rainbow-mode)              ; hex colours
@@ -227,17 +231,24 @@
 ;;   :after treemacs magit
 ;;   :ensure t)
 
-(use-package realgud)
+;; XXX (use-package realgud)
 
 ;; Org mode
-(use-package org-bullets :demand)
+;; (use-package org-bullets :demand)
+;; (use-package org-superstar :demand)
+;; (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+
+(use-package org-superstar
+  :after org
+  :hook org)
 
 (use-package org
-  :after org-bullets
+  ;;  :after org-bullets
   :config
   (setq org-archive-location "~/org/archive.org::"
         org-src-fontify-natively t
         org-hide-emphasis-markers t
+        org-cycle-level-faces nil
         org-default-notes-file (concat org-directory "/todo.org")
         org-agenda-files
         (remove (expand-file-name "~/org/archive.org")
@@ -249,25 +260,28 @@
 
         org-use-fast-todo-selection (quote expert)
         org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")
-          (sequence "EACHDAY(e)" "|" "CHECKED(c)")
+          (sequence "QUERY(q)" "|" "ANSWERED(n)")
+          ;; (sequence "EACHDAY(e)" "|" "CHECKED(c)")
+          (sequence "LATER(l)" "|" "OVER(v)")
           (sequence "WAITING(w)" "RESPONDED(r)" "|" "FINISHED(f)")
           (sequence "URGENT(u)" "INPROGRESS(i)" "ACTION(a)" "|" "OVER(o)"))
 
         org-todo-keyword-faces
         '(("TODO" . org-warning)
-          ("EACHDAY" . (:foreground "yellow" :weight bold))
-          ("CHECKED" . (:foreground "green" :weight bold))
-          ("WAITING" . (:foreground "orange" :weight bold))
-          ("RESPONDED" . (:foreground "yellow" :weight bold))
-          ("CANCELED" . (:foreground "blue" :weight bold)))
+          ;; ("CANCELED" . (:foreground "blue" :weight bold))
+          ("FINISHED" . (:foreground "yellow"))
+          ("DONE" . (:foreground "green"))
+          ("CANCELED" . (:foreground "blue"))
+          ("CHECKED" . (:foreground "green"))
+          ("EACHDAY" . (:foreground "yellow"))
+          ("LATER " . (:foreground "purple"))
+          ("QUERY" . (:foreground "orange"))
+          ("RESPONDED" . (:foreground "yellow"))
+          ("WAITING" . (:foreground "orange")))
 
         org-agenda-custom-commands
         (quote
-         (("n" "Agenda and all TODOs"
-           ((agenda "" nil)
-            (alltodo "" nil))
-           nil)
-
+         (
           ;; ("w" "Weekly meetings"
           ;;  ((tags-todo "thisW" nil)
           ;;   (agenda "" nil))
@@ -280,13 +294,45 @@
           ;;  ((org-agenda-tag-filter-preset (quote ("+factory")))
           ;;   (org-agenda-use-tag-inheritance nil)))
 
-          ("v" "Veea"
+          ("vn" "Netreach"
+           ((agenda "" nil)
+            (tags-todo "todo" nil)
+            (tags-todo "netreach/!WAITING|FINISHED|URGENT|INPROGRESS|TODO" nil)
+            (tags-todo "netreach/QUERY" nil)
+            (tags-todo "netreach/LATER" nil)
+            )
+           nil)
+
+          ("vl" "Netreach - less"
+           ((agenda "netreach" nil)
+            (tags-todo "imminent/TODO|LATER" nil)
+;;            (tags-todo "netreach/!WAITING|FINISHED|URGENT|INPROGRESS|TODO" nil)
+;;            (tags-todo "netreach/URGENT|INPROGRESS|TODO" nil)
+;;             (tags-todo "netreach/LATER" nil)
+            )
+           nil)
+
+          ("A" "Agenda and all TODOs"
+                     ((agenda "" nil)
+                      (alltodo "" nil))
+                     nil)
+
+          ("vt" "vTBA"
+           (
+            ; (tags-todo "todo" nil)
+            (tags-todo "vtba/!WAITING|FINISHED|URGENT|INPROGRESS|TODO|QUERY|LATER" nil)
+            )
+           nil)
+
+          ("vv" "Veea"
            ((tags-todo "todo" nil)
+            (tags-todo "netreach" nil)
             (tags-todo "veea+today" nil)
+            (tags-todo "veea+current_project" nil)
             (agenda "" ((org-agenda-span 'day)) ))
            nil)
 
-          ("V" "Veea FULL!"
+          ("vV" "Veea FULL!"
            ((tags-todo "todo" nil)
             (tags-todo "home" nil)
             (tags-todo "veea+today" nil)
@@ -329,6 +375,8 @@
                  "*** URGENT %?\n  %i")
                 ))
 
+        (setq org-latex-packages-alist '(("margin=2.5cm" "geometry")))
+
         (require 'ox-latex)
         (unless (boundp 'org-latex-classes)
           (setq org-latex-classes nil))
@@ -342,7 +390,8 @@
 
           (visual-line-mode)
           (org-indent-mode)
-          (org-bullets-mode)
+          ;; (org-bullets-mode)
+          (org-superstar-mode)
           (real-auto-save-mode)
           (setq real-auto-save-interval 20))
 
@@ -404,6 +453,45 @@
 (setq
  ediff-split-window-function 'split-window-horizontally)
 
+;; console (-nw) emacs only
+(unless (display-graphic-p)
+  ;; activate mouse-based scrolling
+  (xterm-mouse-mode 1)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
+
+  ;; Change default scrolling modifiers and their meaning.
+  ;; Note that, before this change, the default is 5-line scroll w/o
+  ;; modifier and 1-line w/ SHIFT modifier.
+  ;;
+  ;; Looks like we have to wait for v29 for grahical pixel smooth scroll.
+  (setq mouse-wheel-scroll-amount
+         '(1
+           ((meta)    . hscroll)
+           ((shift)   . 5)
+           ((control) . text-scale)))
+)
+
+(server-start)
+
+;;; XXX temporary until we can get require working
+(defun set-exec-path-from-shell-PATH ()
+  "Set up Emacs' `exec-path' and PATH environment variable to match
+that used by the user's shell.
+
+This is particularly useful under Mac OS X and macOS, where GUI
+apps are not started from a shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string
+			  "[ \t\n]*$" "" (shell-command-to-string
+					  "$SHELL --login -c 'echo $PATH'"
+						    ))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator)))
+    (setq exec-path (append exec-path exec-directory))) ; XXX broken
+
+;; (set-exec-path-from-shell-PATH) ; XXX FIXME
+
 ;; General cruft from down the years, but tidied up a little
 ;; --------------------------------------
 
@@ -420,6 +508,7 @@
  change-log-default-name "~/NOTES"
  column-number-mode t
  compilation-scroll-output t
+ compilation-skip-threshold 2
  completion-ignored-extensions
    (quote ("CM/" "CVS/" ".so" ".o" ".obj" ".elc" "~" ".bin" ".lbin" ".dvi" ".class"))
  delete-key-deletes-forward t
@@ -429,7 +518,7 @@
  desktop-files-not-to-save "^$"
  dired-auto-revert-buffer t
  dired-dwim-target t
- dired-listing-switches "-al"
+ dired-listing-switches "-al --group-directories-first"
  ;; dired-omit-files (concat "^\\.?#\\|^\\.$\\|^\\.\\.$\\|_flymake\\.py$\\|"
  ;;                          "^\\.git\\|^\\.dir-locals\\|^\\.pytest_cache")
  ;; Don't omit parent directory (why?!! would anyone do this?)
@@ -471,15 +560,21 @@
 ;;; XXX (setq-default filladapt-mode t)
 (auto-fill-mode 1)
 (setq fill-column 79)
+(setq fill-column 120)
 
 ;; TRAMP
 
 ;; Move non-TRAMP auto-saves to a single directory
 ;; FIXME Use a var for the dir name
+;; -amh- Stop anything from ending up in /tmp, as I get Tramp complaints
+;; (setq
+;;  auto-save-file-name-transforms
+;;  '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)
+;;    (".*" "~/.emacs.d/auto-saves/" t)))  ; trailing / is crucial - see var docs
+
 (setq
  auto-save-file-name-transforms
- '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)
-   (".*" "~/.emacs.d/auto-saves/" t)))  ; trailing / is crucial - see var docs
+ '((".*" "~/.emacs.d/auto-saves/" t)))  ; trailing / is crucial - see var docs
 (unless (file-exists-p "~/.emacs.d/auto-saves")
   (make-directory "~/.emacs.d/auto-saves"))
 (setq auto-save-default t
@@ -613,7 +708,15 @@
 
 ;; hs-minor-mode
 (add-hook 'c-common-mode-hook (lambda () (hs-minor-mode 1)))
-(add-hook 'python-mode-hook (lambda () (hs-minor-mode 1)))
+(add-hook 'python-mode-hook (lambda ()
+                              (hs-minor-mode 1)
+                              ;; Now set the tab-width you really want here and cross your fingers
+                              (setq tab-width 4)
+                              ;; And tell python-mode not to use tabs.
+                              (setq indent-tabs-mode nil)
+                              ;; Some verions of python.el use this, others don't
+                              (setq py-indent-tabs-mode t)
+                              ))
 (add-hook 'sh-mode-hook (lambda () (hs-minor-mode 1)))
 (add-hook 'makefile-mode-hook (lambda () (hs-minor-mode 1)))
 
